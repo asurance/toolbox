@@ -10,7 +10,7 @@ export default function CardItem({
     tool,
 }: Props): ReactElement {
     return <Link href={tool.url} >
-        <a title={tool.description}>
+        <a title={tool.description} className="item" target="_blank">
             {tool.name}
         </a>
     </Link>

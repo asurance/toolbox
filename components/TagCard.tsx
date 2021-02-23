@@ -11,7 +11,7 @@ export default function TagCard({
 }: Props): ReactElement {
     const toolElements = tools.map(tool => <CardItem key={tool.id} tool={tool} />)
     return <section className="card">
-        <header className="title">
+        <header>
             {tools[0].tag}
         </header>
         <div className="container">
