@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import { Tool } from '../interfaces/tool'
+import CardItem from './CardItem'
 
 type Props = {
     tools: Tool[]
@@ -8,11 +9,13 @@ type Props = {
 export default function TagCard({
     tools,
 }: Props): ReactElement {
-    const toolElements = tools.map(tool => <a key={tool.id} href={tool.url} title={tool.description} >{tool.name}</a>)
+    const toolElements = tools.map(tool => <CardItem key={tool.id} tool={tool} />)
     return <section className="card">
         <header className="title">
             {tools[0].tag}
         </header>
-        {toolElements}
+        <div className="container">
+            {toolElements}
+        </div>
     </section>
 }
