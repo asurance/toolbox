@@ -13,7 +13,8 @@ export type Tag =
     'WebGL' |
     '2d资源' |
     '数学' |
-    'js' |
+    'js库' |
     '字体' |
-    'rust' |
-    'css'
+    'Rust' |
+    '前端' |
+    'chrome插件'
