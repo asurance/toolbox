@@ -40,8 +40,8 @@ export class DataBase {
             request.onupgradeneeded = (event) => {
                 const database = request.result
                 let index = event.oldVersion
-                while (index < DataBaseParseList.length) {
-                    DataBaseParseList[index](database)
+                while (index < DataBaseTransformList.length) {
+                    DataBaseTransformList[index](database)
                     index++
                 }
             }
@@ -62,7 +62,7 @@ function PromisifyIDBRequest<T>(request: IDBRequest<T>): Promise<T> {
     })
 }
 
-const DataBaseParseList = [Database0_1]
+const DataBaseTransformList = [Database0_1]
 
 function Database0_1(database: IDBDatabase) {
     database.createObjectStore('tool', { keyPath: 'id' })
