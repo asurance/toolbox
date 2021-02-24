@@ -1,162 +1,138 @@
 {
-    "version": 0,
     "tools": [
         {
-            "id": 0,
             "name": "Mixamo",
             "description": "3d动作资源网站",
             "tag": "3d资源",
             "url": "https://www.mixamo.com/"
         },
         {
-            "id": 1,
             "name": "Sketchfab",
             "description": "3d模型资源网站",
             "tag": "3d资源",
             "url": "https://sketchfab.com/"
         },
         {
-            "id": 2,
             "name": "Indienova",
             "description": "独立游戏资讯网站",
             "tag": "独立游戏",
             "url": "https://www.indienova.com/"
         },
         {
-            "id": 3,
             "name": "Audacity",
             "description": "免费音频编辑软件",
             "tag": "音频",
             "url": "https://www.audacityteam.org/"
         },
         {
-            "id": 4,
             "name": "freesound",
             "description": "免费音频资源网站",
             "tag": "音频",
             "url": "https://freesound.org/"
         },
         {
-            "id": 5,
             "name": "Spector.js",
             "description": "WebGL调试工具",
             "tag": "WebGL",
             "url": "https://spector.babylonjs.com/"
         },
         {
-            "id": 6,
             "name": "khronos",
             "description": "WebGL官方文档",
             "tag": "WebGL",
             "url": "https://www.khronos.org/webgl/"
         },
         {
-            "id": 7,
             "name": "The Spriters Resource",
             "description": "2d资源网站",
             "tag": "2d资源",
             "url": "https://www.spriters-resource.com/"
         },
         {
-            "id": 8,
             "name": "MathStudio",
             "description": "数学工具",
             "tag": "数学",
             "url": "http://mathstud.io/"
         },
         {
-            "id": 9,
             "name": "Shadershop",
             "description": "数学工具",
             "tag": "数学",
             "url": "http://tobyschachman.com/Shadershop/editor/"
         },
         {
-            "id": 10,
             "name": "cypress",
             "description": "前端测试框架",
             "tag": "前端",
             "url": "https://www.cypress.io/"
         },
         {
-            "id": 11,
             "name": "free-font",
             "description": "中文免费可商用字体",
             "tag": "字体",
             "url": "https://github.com/wordshub/free-font"
         },
         {
-            "id": 12,
             "name": "Font Awesome",
             "description": "图形化字体",
             "tag": "字体",
             "url": "https://fontawesome.dashgame.com/"
         },
         {
-            "id": 13,
             "name": "Adobe Color",
             "description": "adobe 调色盘",
             "tag": "前端",
             "url": "https://color.adobe.com/zh/explore"
         },
         {
-            "id": 14,
             "name": "Rust月刊",
             "description": "Rust语言开源杂志",
             "tag": "Rust",
             "url": "https://rustmagazine.github.io/rust_magazine_2021/index.html"
         },
         {
-            "id": 15,
             "name": "Code My UI",
             "description": "UI样例网站",
             "tag": "前端",
             "url": "https://codemyui.com/"
         },
         {
-            "id": 16,
             "name": "30 seconds of code",
             "description": "代码片段",
             "tag": "前端",
             "url": "https://www.30secondsofcode.org/"
         },
         {
-            "id": 17,
             "name": "NW.js",
             "description": "类似electron桌面开发库",
             "tag": "js库",
             "url": "https://nwjs.org.cn/"
         },
         {
-            "id": 18,
             "name": "Talend API Tester",
             "description": "Http请求和url解析插件",
             "tag": "chrome插件",
             "url": "https://chrome.google.com/webstore/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm"
         },
         {
-            "id": 19,
             "name": "collection.js",
             "description": "js容器库",
             "tag": "js库",
             "url": "http://www.collectionsjs.com/"
         },
         {
-            "id": 20,
             "name": "danger.js",
             "description": "CI工具链库",
             "tag": "js库",
             "url": "https://danger.systems/js/"
         },
         {
-            "id": 21,
             "name": "Multiavatar",
             "description": "假头像库",
             "tag": "js库",
             "url": "https://multiavatar.com/"
         },
         {
-            "id": 22,
             "name": "faker.js",
             "description": "假数据库",
             "tag": "js库",

@@ -9,7 +9,7 @@ type Props = {
 export default function TagCard({
     tools,
 }: Props): ReactElement {
-    const toolElements = tools.map(tool => <CardItem key={tool.id} tool={tool} />)
+    const toolElements = tools.map((tool, index) => <CardItem key={index} tool={tool} />)
     return <section className="card">
         <header>
             {tools[0].tag}
