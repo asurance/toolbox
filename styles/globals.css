@@ -50,10 +50,6 @@ a {
     transition: box-shadow 0.2s;
 }
 
-.card.add {
-    justify-content: center;
-}
-
 .card:hover {
     box-shadow: 0.1rem 0.1rem 0.1rem hsla(0, 0%, 0%, 0.3);
 }
@@ -92,34 +88,28 @@ a {
     flex-wrap: wrap;
 }
 
-.addicon {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 3rem;
-    cursor: pointer;
-}
-
 .item {
     white-space: nowrap;
+    background-color: hsl(180, 100%, 50%);
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    margin: 0.2rem;
+    transition: all 1s;
+}
+
+.item:hover {
+    background-color:hsl(70, 100%, 50%)
 }
 
 @media screen and (max-width:640px) {
     :root {
         font-size: 12px;
     }
-    #main {
-        max-width: 36rem;
-        columns: 2;
-    }
 }
 
 @media screen and (max-width:520px) {
     :root {
         font-size: 8px;
-    }
-    #main {
-        max-width: 24rem;
-        columns: 1;
     }
 }
 
