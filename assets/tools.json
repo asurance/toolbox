@@ -137,6 +137,12 @@
             "description": "假数据库",
             "tag": "js库",
             "url": "https://github.com/Marak/faker.js"
+        },
+        {
+            "name": "Majestic",
+            "description": "测试工具",
+            "tag": "js库",
+            "url": "https://github.com/Raathigesh/majestic"
         }
     ]
 }
