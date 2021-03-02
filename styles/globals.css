@@ -24,13 +24,6 @@ a {
     border-radius: 0 0 2rem 2rem;
 }
 
-.copy {
-    margin-left: 2rem;
-    cursor: pointer;
-    width: 2rem;
-    height: 2rem;
-}
-
 #main {
     margin: 2rem 8rem 0 8rem;
     display: flex;
@@ -85,7 +78,10 @@ a {
 .card .container {
     margin: 1rem;
     display: flex;
+    max-width: 24rem;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .item {
@@ -93,12 +89,12 @@ a {
     background-color: hsl(180, 100%, 50%);
     border-radius: 1rem;
     padding: 0.5rem 1rem;
-    margin: 0.2rem;
+    margin: 0.3rem 0.2rem;
     transition: all 1s;
 }
 
 .item:hover {
-    background-color:hsl(70, 100%, 50%)
+    background-color: hsl(70, 100%, 50%)
 }
 
 @media screen and (max-width:640px) {
