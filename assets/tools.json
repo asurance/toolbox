@@ -143,6 +143,12 @@
             "description": "测试工具",
             "tag": "js库",
             "url": "https://github.com/Raathigesh/majestic"
+        },
+        {
+            "name": "素材集合",
+            "description": "素材集合",
+            "tag": "独立游戏",
+            "url": "http://game.yixin.im/static-web/hd/game-base/#/guide"
         }
     ]
 }
