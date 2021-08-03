@@ -1,5 +1,5 @@
 import { Tool } from "@/interfaces";
-import { computed, reactive } from "vue";
+import { computed, ComputedRef, reactive } from "vue";
 
 export const tools: Tool[] = [
   {
@@ -156,12 +156,12 @@ export const tools: Tool[] = [
 
 export const ToolStore = {
   tools: reactive(tools),
-  get allNames() {
+  get allNames(): ComputedRef<string[]> {
     return computed(() => {
       return this.tools.map((tool) => tool.name);
     });
   },
-  get allTags() {
+  get allTags(): ComputedRef<string[]> {
     return computed(() => {
       const set = new Set<string>();
       for (const { tags } of this.tools) {
