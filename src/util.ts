@@ -1,26 +1,3 @@
-export function CheckStrContainer(
-  source: string,
-  check: string,
-): number[] | null {
-  const sourceLength = source.length;
-  const checkLength = check.length;
-  const out: number[] = [];
-  let i = 0;
-  let j = 0;
-  while (i < sourceLength && j < checkLength) {
-    if (source[i] === check[j]) {
-      out.push(i);
-      j++;
-    }
-    i++;
-  }
-  if (out.length === checkLength) {
-    return out;
-  } else {
-    return null;
-  }
-}
-
 export function GetCheckScore(result: number[]): number {
   let sum = 0;
   const length = result.length;

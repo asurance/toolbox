@@ -1,15 +1,11 @@
 <template>
   <header>Asurance的工具箱</header>
   <div>
-    <input
-      type="text"
-      autocomplete="false"
-      placeholder="搜索"
-      @keydown="onChange"
+    <input type="text" placeholder="搜索" @focus="onFocusSearch" />
+    <SearchBox
+      :visible="searchVisible"
+      @VisibleChange="onSearchVisibleChange"
     />
-    <div class="test" v-if="results.length > 0">
-      <div v-for="(result, index) of results" :key="index">{{ result }}</div>
-    </div>
   </div>
   <main>
     <ToolCard v-for="(tool, index) of tools" :key="index" :tool="tool" />
@@ -18,38 +14,27 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import ToolCard from "@/components/ToolCard.vue";
+import SearchBox from "@/components/SearchBox.vue";
 import { ToolStore } from "@/config";
-import { DefaultSorter, GetScore } from "@/util";
 
 export default defineComponent({
-  components: { ToolCard },
+  components: { ToolCard, SearchBox },
   setup() {
-    const results = ref<string[]>([]);
-    const onChange = (e: KeyboardEvent) => {
-      if (e.code === "Enter") {
-        const value = (e.target as HTMLInputElement).value;
-        const sorted = ToolStore.allNames.value
-          .map<{ name: string; score: number }>((name) => {
-            const score = GetScore(name, value, []);
-            return {
-              name,
-              score,
-            };
-          })
-          .filter(({ score }) => score > 0)
-          .sort((a, b) => {
-            if (a.score < b.score) {
-              return 1;
-            } else if (a.score > b.score) {
-              return -1;
-            } else {
-              return DefaultSorter(a.name, b.name);
-            }
-          });
-        results.value = sorted.map(({ name }) => name);
-      }
+    const searchVisible = ref(false);
+    const onFocusSearch = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+      target.blur();
+      searchVisible.value = true;
     };
-    return { tools: ToolStore.tools, onChange, results };
+    const onSearchVisibleChange = (visible: boolean) => {
+      searchVisible.value = visible;
+    };
+    return {
+      tools: ToolStore.tools,
+      searchVisible,
+      onFocusSearch,
+      onSearchVisibleChange,
+    };
   },
 });
 </script>
