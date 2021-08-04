@@ -1,4 +1,5 @@
 <template>
+  <div class="background"></div>
   <header>Asurance的工具箱</header>
   <div>
     <input type="text" placeholder="搜索" @focus="onFocusSearch" />
@@ -46,10 +47,19 @@ header {
   align-items: center;
   font-size: 4rem;
   padding: 4rem 0;
-  color: white;
-  background-color: hsla(144, 82%, 46%, 0.7);
-  border-radius: 0 0 2rem 2rem;
+  color: var(--white);
 }
+
+.background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-image: linear-gradient(135deg, var(--white), var(--green));
+}
+
 main {
   display: flex;
   flex-wrap: wrap;

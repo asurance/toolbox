@@ -4,14 +4,14 @@ import { computed, ComputedRef, reactive } from "vue";
 export const tools: Tool[] = [
   {
     name: "Mixamo",
-    description: "3d动作资源网站",
-    tags: ["3d资源"],
+    description: "3d动作资源",
+    tags: ["3d", "美术", "资源"],
     url: "https://www.mixamo.com/",
   },
   {
     name: "Sketchfab",
-    description: "3d模型资源网站",
-    tags: ["3d资源"],
+    description: "3d模型资源",
+    tags: ["3d", "美术", "资源"],
     url: "https://sketchfab.com/",
   },
   {
@@ -23,50 +23,44 @@ export const tools: Tool[] = [
   {
     name: "Audacity",
     description: "免费音频编辑软件",
-    tags: ["音频"],
+    tags: ["音频", "软件"],
     url: "https://www.audacityteam.org/",
   },
   {
     name: "freesound",
     description: "免费音频资源网站",
-    tags: ["音频"],
+    tags: ["音频", "资源"],
     url: "https://freesound.org/",
   },
   {
     name: "Spector.js",
     description: "WebGL调试工具",
-    tags: ["WebGL"],
+    tags: ["WebGL", "软件"],
     url: "https://spector.babylonjs.com/",
   },
   {
     name: "khronos",
     description: "WebGL官方文档",
-    tags: ["WebGL"],
+    tags: ["WebGL", "文档"],
     url: "https://www.khronos.org/webgl/",
   },
   {
     name: "The Spriters Resource",
     description: "2d资源网站",
-    tags: ["2d资源"],
+    tags: ["2d", "美术", "资源"],
     url: "https://www.spriters-resource.com/",
   },
   {
     name: "MathStudio",
     description: "数学工具",
-    tags: ["数学"],
+    tags: ["数学", "软件"],
     url: "http://mathstud.io/",
   },
   {
     name: "Shadershop",
     description: "数学工具",
-    tags: ["数学"],
+    tags: ["数学", "软件"],
     url: "http://tobyschachman.com/Shadershop/editor/",
-  },
-  {
-    name: "cypress",
-    description: "前端测试框架",
-    tags: ["前端"],
-    url: "https://www.cypress.io/",
   },
   {
     name: "free-font",
@@ -107,7 +101,7 @@ export const tools: Tool[] = [
   {
     name: "NW.js",
     description: "类似electron桌面开发库",
-    tags: ["js库"],
+    tags: ["js/ts"],
     url: "https://nwjs.org.cn/",
   },
   {
@@ -119,37 +113,37 @@ export const tools: Tool[] = [
   {
     name: "collection.js",
     description: "js容器库",
-    tags: ["js库"],
+    tags: ["js/ts"],
     url: "http://www.collectionsjs.com/",
   },
   {
     name: "danger.js",
     description: "CI工具链库",
-    tags: ["js库"],
+    tags: ["js/ts"],
     url: "https://danger.systems/js/",
   },
   {
     name: "Multiavatar",
     description: "假头像库",
-    tags: ["js库"],
+    tags: ["js/ts"],
     url: "https://multiavatar.com/",
   },
   {
     name: "faker.js",
     description: "假数据库",
-    tags: ["js库"],
+    tags: ["js/ts"],
     url: "https://github.com/Marak/faker.js",
   },
   {
     name: "Majestic",
     description: "测试工具",
-    tags: ["js库"],
+    tags: ["js/ts"],
     url: "https://github.com/Raathigesh/majestic",
   },
   {
     name: "素材集合",
     description: "素材集合",
-    tags: ["独立游戏", "chrome"],
+    tags: ["独立游戏"],
     url: "http://game.yixin.im/static-web/hd/game-base/#/guide",
   },
 ];

@@ -12,6 +12,8 @@ a {
 }
 
 :root {
+  --white: rgb(233, 233, 233);
+  --green: #00db00;
   font-size: 16px;
 }
 
