@@ -1,3 +1,16 @@
+:root {
+  --color0: #d8f3dc;
+  --color1: #b7e4c7;
+  --color2: #95d5b2;
+  --color3: #74c69d;
+  --color4: #52b788;
+  --color5: #40916c;
+  --color6: #2d6a4f;
+  --color7: #1b4332;
+  --color8: #081c15;
+  font-size: 16px;
+}
+
 html,
 body {
   padding: 0;
@@ -12,19 +25,104 @@ a {
   color: inherit;
 }
 
-:root {
-  --white: rgb(233, 233, 233);
-  --green: #00db00;
-  --color0: #d8f3dc;
-  --color1: #b7e4c7;
-  --color2: #95d5b2;
-  --color3: #74c69d;
-  --color4: #52b788;
-  --color5: #40916c;
-  --color6: #2d6a4f;
-  --color7: #1b4332;
-  --color8: #081c15;
-  font-size: 16px;
+input[type="text"] {
+  border: none;
+  background: none;
+  outline: none;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4em;
+  padding: 1em 0;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-image: linear-gradient(135deg, var(--color0), var(--color1));
+}
+
+.search {
+  height: 2em;
+  margin: 0 4em;
+  padding: 1em;
+  border-radius: 1em;
+  border: 1px solid var(--color8);
+  display: flex;
+  align-items: center;
+}
+
+.search svg {
+  width: 2em;
+  height: 2em;
+  position: absolute;
+}
+
+.search input[type="text"] {
+  padding-left: 2em;
+  font-size: 1.5em;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 16em;
+  max-width: 32em;
+  height: 16em;
+  margin: 1em;
+  border: 1px solid var(--color8);
+  border-radius: 1em;
+  box-shadow: 0.3em 0.3em 0.3em var(--color6), -0.3em 0.3em 0.3em var(--color6);
+  transition: box-shadow 0.2s;
+}
+.card:hover {
+  box-shadow: 0.1em 0.1em 0.1em var(--color7), -0.1em 0.1em 0.1em var(--color7);
+}
+.card > header {
+  flex: 0 0 1.5em;
+  margin: 1em;
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  font-weight: bold;
+}
+
+.card > p {
+  flex: 1 1 auto;
+  margin: 0 1em;
+  display: flex;
+  max-width: 24em;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  border-width: 1px 0 1px 0;
+  border-style: solid;
+}
+
+.card > div {
+  flex: 0 0 2em;
+  margin: 1em;
+  display: flex;
+}
+
+.card .tag {
+  padding: 0.2em 0.5em;
+  border: 1px solid var(--color8);
+  border-radius: 0.5em;
 }
 
 @media screen and (max-width: 640px) {

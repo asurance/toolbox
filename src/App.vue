@@ -1,12 +1,19 @@
 <template>
   <div class="background"></div>
-  <header>Asurance的工具箱</header>
-  <div>
-    <input type="text" placeholder="搜索" @focus="onFocusSearch" />
-    <SearchBox
-      :visible="searchVisible"
-      @VisibleChange="onSearchVisibleChange"
-    />
+  <header class="header">Asurance的工具箱</header>
+  <div class="search">
+    <svg
+      class="icon"
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill="#333333"
+        d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6c3.2 3.2 8.4 3.2 11.6 0l43.6-43.5c3.2-3.2 3.2-8.4 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"
+      />
+    </svg>
+    <input type="text" placeholder="搜索" />
   </div>
   <main>
     <ToolCard v-for="(tool, index) of tools" :key="index" :tool="tool" />
@@ -15,62 +22,20 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import ToolCard from "@/components/ToolCard.vue";
-import SearchBox from "@/components/SearchBox.vue";
 import { ToolStore } from "@/config";
 
 export default defineComponent({
-  components: { ToolCard, SearchBox },
+  components: { ToolCard },
   setup() {
     const searchVisible = ref(false);
-    const onFocusSearch = (e: Event) => {
-      const target = e.target as HTMLInputElement;
-      target.blur();
-      searchVisible.value = true;
-    };
     const onSearchVisibleChange = (visible: boolean) => {
       searchVisible.value = visible;
     };
     return {
       tools: ToolStore.tools,
       searchVisible,
-      onFocusSearch,
       onSearchVisibleChange,
     };
   },
 });
 </script>
-
-<style scoped>
-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 4rem;
-  padding: 4rem 0;
-}
-
-.background {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  background-image: linear-gradient(135deg, var(--color0), var(--color1));
-}
-
-main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-div {
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
-.test {
-  position: absolute;
-  top: 1rem;
-}
-</style>
