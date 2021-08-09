@@ -46,7 +46,7 @@ input[type="text"] {
   justify-items: stretch;
 }
 
-header {
+main > header {
   display: flex;
   justify-content: center;
   align-items: center;
