@@ -47,7 +47,6 @@ header {
   align-items: center;
   font-size: 4rem;
   padding: 4rem 0;
-  color: var(--white);
 }
 
 .background {
@@ -57,7 +56,7 @@ header {
   bottom: 0;
   left: 0;
   z-index: -1;
-  background-image: linear-gradient(135deg, var(--white), var(--green));
+  background-image: linear-gradient(135deg, var(--color0), var(--color1));
 }
 
 main {

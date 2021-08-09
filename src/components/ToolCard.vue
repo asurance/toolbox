@@ -33,11 +33,11 @@ section {
   margin: 1rem;
   border: 1px solid black;
   border-radius: 1rem;
-  box-shadow: 0.3rem 0.3rem 0.3rem hsla(0, 0%, 0%, 0.7);
+  box-shadow: 0.3rem 0.3rem 0.3rem var(--color6);
   transition: box-shadow 0.2s;
 }
 section:hover {
-  box-shadow: 0.1rem 0.1rem 0.1rem hsla(0, 0%, 0%, 0.3);
+  box-shadow: 0.1rem 0.1rem 0.1rem var(--color7);
 }
 section > header {
   flex: 0 0 1.5rem;
