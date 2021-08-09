@@ -4,30 +4,33 @@
     <p>
       {{ tool.description }}
     </p>
-    <div>
-      <span class="tag" v-for="tag in tool.tags" :key="tag">{{ tag }}</span>
+    <div class="tags">
+      <CheckedTag
+        v-for="tag in tool.tags"
+        :key="tag"
+        :name="tag"
+        :selectedTag="selectedTag"
+      />
     </div>
   </section>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { Tool } from "@/interfaces";
+import CheckedTag from "@/components/CheckedTag.vue";
+import { Tag, Tool } from "@/interfaces";
 
 export default defineComponent({
+  components: { CheckedTag },
   props: {
     tool: {
       type: Object as PropType<Tool>,
       required: true,
     },
-  },
-  setup(props) {
-    const onClickCard = () => {
-      window.open(props.tool.url);
-    };
-    return {
-      onClickCard,
-    };
+    selectedTag: {
+      type: Set as PropType<Set<Tag>>,
+      required: true,
+    },
   },
 });
 </script>
