@@ -1,5 +1,5 @@
 <template>
-  <section class="card" :title="tool.url">
+  <section class="card" :title="tool.url" @click="onClickCard">
     <header>{{ tool.name }}</header>
     <p>
       {{ tool.description }}
@@ -20,6 +20,14 @@ export default defineComponent({
       type: Object as PropType<Tool>,
       required: true,
     },
+  },
+  setup(props) {
+    const onClickCard = () => {
+      window.open(props.tool.url);
+    };
+    return {
+      onClickCard,
+    };
   },
 });
 </script>
