@@ -1,7 +1,6 @@
 import { Tool } from "@/interfaces";
-import { computed, ComputedRef, reactive } from "vue";
 
-export const tools: Tool[] = [
+const Tools: Tool[] = [
   {
     name: "Mixamo",
     description: "3d动作资源",
@@ -148,22 +147,4 @@ export const tools: Tool[] = [
   },
 ];
 
-export const ToolStore = {
-  tools: reactive(tools),
-  get allNames(): ComputedRef<string[]> {
-    return computed(() => {
-      return this.tools.map((tool) => tool.name);
-    });
-  },
-  get allTags(): ComputedRef<string[]> {
-    return computed(() => {
-      const set = new Set<string>();
-      for (const { tags } of this.tools) {
-        for (const tag of tags) {
-          set.add(tag);
-        }
-      }
-      return [...set];
-    });
-  },
-};
+export default Tools;

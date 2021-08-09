@@ -5,7 +5,7 @@ export type Tool = {
   tags: Tag[];
 };
 
-type Tag =
+export type Tag =
   | "2d"
   | "3d"
   | "美术"

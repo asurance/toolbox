@@ -76,6 +76,22 @@ main {
   font-size: 1.5em;
 }
 
+.tags label {
+  cursor: pointer;
+}
+
+.tags label input[type="checkbox"] {
+  display: none;
+}
+
+.tags label input[type="checkbox"] + span {
+  color: red;
+}
+
+.tags label input[type="checkbox"]:checked + span {
+  color: blue;
+}
+
 .card {
   display: flex;
   flex-direction: column;
