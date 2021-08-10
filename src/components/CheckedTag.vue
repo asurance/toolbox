@@ -1,7 +1,7 @@
 <template>
   <div
     :class="['tag', selectedTag.has(name) ? 'selected' : '']"
-    @click="onClick"
+    @click.stop="onClick"
   >
     <svg
       viewBox="0 0 1024 1024"

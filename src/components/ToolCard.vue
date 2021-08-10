@@ -44,6 +44,9 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const onClickCard = () => {
+      window.open(props.tool.url);
+    };
     const headerList = computed(() => {
       const list: {
         content: string;
@@ -93,6 +96,7 @@ export default defineComponent({
       return list;
     });
     return {
+      onClickCard,
       headerList,
     };
   },
