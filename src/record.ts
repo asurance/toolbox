@@ -1,4 +1,6 @@
+import useTools from "@/hooks/useTools";
 import Tools from "@/config";
+import { unref } from "vue";
 
 export type RecordType = "tag" | "tool";
 
@@ -8,8 +10,21 @@ class OperationRecord {
   constructor() {
     this.records = new Map<string, number[]>();
     this.scores = new Map<string, number>();
-    for (const tool of Tools) {
+    const { tools, tags } = useTools();
+    for (const tool of tools) {
       const key = `tool-${tool.name}`;
+      const record = localStorage.getItem(key);
+      if (record) {
+        this.records.set(
+          key,
+          record.split(",").map((str) => parseInt(str, 36)),
+        );
+      } else {
+        this.records.set(key, []);
+      }
+    }
+    for (const tag of unref(tags)) {
+      const key = `tag-${tag}`;
       const record = localStorage.getItem(key);
       if (record) {
         this.records.set(
