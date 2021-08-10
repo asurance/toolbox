@@ -130,6 +130,9 @@ main > .tags {
   font-weight: bold;
 }
 
+.card > header .highlight {
+  color: red;
+}
 .card > p {
   flex: 1 1 auto;
   display: flex;

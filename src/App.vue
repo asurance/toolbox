@@ -23,9 +23,10 @@
     <TagsFilter :tags="tags" :selectedTag="selectedTag" />
     <div class="cards">
       <ToolCard
-        v-for="(tool, index) of tools"
+        v-for="({ tool, pos }, index) of tools"
         :key="index"
         :tool="tool"
+        :pos="pos"
         :selectedTag="selectedTag"
       />
     </div>
@@ -47,7 +48,7 @@ export default defineComponent({
     const {
       searchValue,
       onSearchChange,
-      filteredTools: showTools,
+      filteredResult: showTools,
     } = useSearchFilter(filteredTools);
     return {
       tools: showTools,
