@@ -2,16 +2,14 @@ import Tools from "@/config";
 
 export type RecordType = "tag" | "tool";
 
-type Key = `${RecordType}-${string}`;
-
 class OperationRecord {
-  private records: Map<Key, number[]>;
-  private scores: Map<Key, number>;
+  private records: Map<string, number[]>;
+  private scores: Map<string, number>;
   constructor() {
-    this.records = new Map<Key, number[]>();
-    this.scores = new Map<Key, number>();
+    this.records = new Map<string, number[]>();
+    this.scores = new Map<string, number>();
     for (const tool of Tools) {
-      const key: Key = `tool-${tool.name}`;
+      const key = `tool-${tool.name}`;
       const record = sessionStorage.getItem(key);
       if (record) {
         this.records.set(
@@ -68,7 +66,7 @@ class OperationRecord {
   }
 
   addRecord(name: string, type: RecordType) {
-    const key: Key = `${type}-${name}`;
+    const key = `${type}-${name}`;
     const records = this.records.get(key);
     if (records) {
       records.push(Date.now());
