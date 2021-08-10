@@ -159,19 +159,23 @@ main > header {
   display: flex;
 }
 
-@media screen and (max-width: 640px) {
+@media (max-width: 1280px) {
   :root {
     font-size: 12px;
   }
 }
 
-@media screen and (max-width: 520px) {
+@media (max-width: 1024px) {
+  :root {
+    font-size: 10px;
+  }
+}
+@media (max-width: 768px) {
   :root {
     font-size: 8px;
   }
 }
-
-@media screen and (max-width: 360px) {
+@media (max-width: 640px) {
   :root {
     font-size: 6px;
   }
