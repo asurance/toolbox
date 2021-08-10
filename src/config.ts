@@ -3,7 +3,7 @@ import { Tool } from "@/interfaces";
 const Tools: Tool[] = [
   {
     name: "Mixamo",
-    description: "3d动作资源",
+    description: "3d动作资源,支持上传模型自动生成动画",
     tags: ["3d", "美术", "资源"],
     url: "https://www.mixamo.com/",
   },
@@ -20,12 +20,6 @@ const Tools: Tool[] = [
     url: "https://www.indienova.com/",
   },
   {
-    name: "Audacity",
-    description: "免费音频编辑软件",
-    tags: ["音频", "软件"],
-    url: "https://www.audacityteam.org/",
-  },
-  {
     name: "freesound",
     description: "免费音频资源网站",
     tags: ["音频", "资源"],
@@ -34,7 +28,7 @@ const Tools: Tool[] = [
   {
     name: "Spector.js",
     description: "WebGL调试工具",
-    tags: ["WebGL", "软件"],
+    tags: ["WebGL", "工具"],
     url: "https://spector.babylonjs.com/",
   },
   {
@@ -51,14 +45,14 @@ const Tools: Tool[] = [
   },
   {
     name: "MathStudio",
-    description: "数学工具",
-    tags: ["数学", "软件"],
+    description: "数学工具,支持公式计算",
+    tags: ["数学", "工具"],
     url: "http://mathstud.io/",
   },
   {
     name: "Shadershop",
-    description: "数学工具",
-    tags: ["数学", "软件"],
+    description: "数学可视化工具",
+    tags: ["数学", "工具"],
     url: "http://tobyschachman.com/Shadershop/editor/",
   },
   {
@@ -69,15 +63,9 @@ const Tools: Tool[] = [
   },
   {
     name: "Font Awesome",
-    description: "图形化字体",
-    tags: ["字体"],
+    description: "图标库",
+    tags: ["Icon"],
     url: "https://fontawesome.dashgame.com/",
-  },
-  {
-    name: "Adobe Color",
-    description: "adobe 调色盘",
-    tags: ["前端"],
-    url: "https://color.adobe.com/zh/explore",
   },
   {
     name: "Rust月刊",
@@ -141,7 +129,7 @@ const Tools: Tool[] = [
   },
   {
     name: "素材集合",
-    description: "素材集合",
+    description: "游戏相关素材集合",
     tags: ["独立游戏"],
     url: "http://game.yixin.im/static-web/hd/game-base/#/guide",
   },

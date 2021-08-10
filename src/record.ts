@@ -1,5 +1,4 @@
 import useTools from "@/hooks/useTools";
-import Tools from "@/config";
 import { unref } from "vue";
 
 export type RecordType = "tag" | "tool";
