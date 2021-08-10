@@ -10,7 +10,7 @@ class OperationRecord {
     this.scores = new Map<string, number>();
     for (const tool of Tools) {
       const key = `tool-${tool.name}`;
-      const record = sessionStorage.getItem(key);
+      const record = localStorage.getItem(key);
       if (record) {
         this.records.set(
           key,
@@ -52,7 +52,7 @@ class OperationRecord {
       score += 2 * (record.length - index);
       if (deleteCount > 0) {
         record.splice(0, 2);
-        sessionStorage.setItem(
+        localStorage.setItem(
           key,
           record.map((val) => val.toString(36)).join(","),
         );
@@ -70,7 +70,7 @@ class OperationRecord {
     const records = this.records.get(key);
     if (records) {
       records.push(Date.now());
-      sessionStorage.setItem(
+      localStorage.setItem(
         key,
         records.map((val) => val.toString(36)).join(","),
       );
