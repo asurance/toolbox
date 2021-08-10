@@ -19,6 +19,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { Tag } from "@/interfaces";
+import Record from "@/record";
 
 export default defineComponent({
   props: {
@@ -36,6 +37,7 @@ export default defineComponent({
       if (props.selectedTag.has(props.name)) {
         props.selectedTag.delete(props.name);
       } else {
+        Record.addRecord(props.name, "tag");
         props.selectedTag.add(props.name);
       }
     };

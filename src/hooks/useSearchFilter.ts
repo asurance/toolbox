@@ -1,9 +1,18 @@
 import { computed, DeepReadonly, Ref, ref, unref } from "vue";
 import { Tool } from "@/interfaces";
 import { DefaultSorter, GetScore } from "@/util";
+import Record from "@/record";
 
 const BackUpSorter = (a: DeepReadonly<Tool>, b: DeepReadonly<Tool>) => {
-  return DefaultSorter(a.name, b.name);
+  const aScore = Record.getScore(a.name, "tool");
+  const bScore = Record.getScore(b.name, "tool");
+  if (aScore < bScore) {
+    return 1;
+  } else if (aScore > bScore) {
+    return -1;
+  } else {
+    return DefaultSorter(a.name, b.name);
+  }
 };
 
 export default function useSearchFilter(

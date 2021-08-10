@@ -13,7 +13,7 @@
     </p>
     <div class="tags">
       <CheckedTag
-        v-for="tag in tool.tags"
+        v-for="tag in showTags"
         :key="tag"
         :name="tag"
         :selectedTag="selectedTag"
@@ -26,6 +26,8 @@
 import { computed, defineComponent, PropType } from "vue";
 import CheckedTag from "@/components/CheckedTag.vue";
 import { Tag, Tool } from "@/interfaces";
+import Record from "@/record";
+import { TagSorter } from "@/util";
 
 export default defineComponent({
   components: { CheckedTag },
@@ -45,8 +47,13 @@ export default defineComponent({
   },
   setup(props) {
     const onClickCard = () => {
+      Record.addRecord(props.tool.name, "tool");
       window.open(props.tool.url);
     };
+    const showTags = computed(() => {
+      const tags = [...props.tool.tags];
+      return tags.sort(TagSorter);
+    });
     const headerList = computed(() => {
       const list: {
         content: string;
@@ -97,6 +104,7 @@ export default defineComponent({
     });
     return {
       onClickCard,
+      showTags,
       headerList,
     };
   },
