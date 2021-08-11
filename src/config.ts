@@ -76,13 +76,13 @@ const Tools: Tool[] = [
   {
     name: "Code My UI",
     description: "UI样例网站",
-    tags: ["前端"],
+    tags: ["js/ts", "css"],
     url: "https://codemyui.com/",
   },
   {
     name: "30 seconds of code",
     description: "代码片段",
-    tags: ["前端"],
+    tags: ["js/ts", "css"],
     url: "https://www.30secondsofcode.org/",
   },
   {
@@ -132,6 +132,30 @@ const Tools: Tool[] = [
     description: "游戏相关素材集合",
     tags: ["独立游戏"],
     url: "http://game.yixin.im/static-web/hd/game-base/#/guide",
+  },
+  {
+    name: "screeps中文文档",
+    description: "screeps中文文档",
+    tags: ["screeps", "文档"],
+    url: "https://screeps-cn.github.io/",
+  },
+  {
+    name: "screeps中文API文档",
+    description: "screeps中文API文档",
+    tags: ["screeps", "文档"],
+    url: "https://screeps-cn.github.io/api/",
+  },
+  {
+    name: "50projects50days",
+    description: "50个前端demo",
+    tags: ["js/ts", "css"],
+    url: "https://github.com/bradtraversy/50projects50days",
+  },
+  {
+    name: "coolors",
+    description: "前端配色网站",
+    tags: ["工具"],
+    url: "https://coolors.co/",
   },
 ];
 

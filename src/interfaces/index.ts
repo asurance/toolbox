@@ -23,6 +23,7 @@ export type Tag =
   | "css"
   | "React"
   | "Vue"
-  | "前端"
   | "chrome插件"
+  | "screeps"
+  | "教程"
   | "数学";
