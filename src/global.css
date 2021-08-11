@@ -79,12 +79,15 @@ main > header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+}
+
+main > .tags {
   padding: 1em 0;
 }
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 18em);
+  grid-template-columns: repeat(4, 18em);
   grid-gap: 2em;
   justify-content: space-around;
   align-content: space-around;
@@ -163,20 +166,29 @@ main > header {
   :root {
     font-size: 12px;
   }
-}
-
-@media (max-width: 1024px) {
-  :root {
-    font-size: 10px;
+  .cards {
+    grid-template-columns: repeat(3, 18em);
+  }
+  .card {
+    height: 24em;
   }
 }
 @media (max-width: 768px) {
   :root {
-    font-size: 8px;
+    font-size: 10px;
+  }
+  .cards {
+    grid-template-columns: repeat(2, 18em);
+  }
+  .card {
+    height: 28em;
   }
 }
 @media (max-width: 640px) {
   :root {
-    font-size: 6px;
+    font-size: 8px;
+  }
+  .card {
+    height: 32em;
   }
 }
