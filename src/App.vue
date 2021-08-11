@@ -1,7 +1,7 @@
 <template>
   <main>
     <header>Asurance的工具箱</header>
-    <div class="search">
+    <label class="search">
       <svg
         class="icon"
         viewBox="0 0 1024 1024"
@@ -19,7 +19,7 @@
         :value="searchValue"
         @input.prevent="onSearchChange"
       />
-    </div>
+    </label>
     <TagsFilter :tags="tags" :selectedTag="selectedTag" />
     <div class="cards">
       <ToolCard

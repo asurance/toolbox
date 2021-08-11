@@ -157,7 +157,7 @@ main > .tags {
   color: var(--card-article);
 }
 
-.card > div {
+.card > .tags {
   flex: 0 0 1em;
   display: flex;
 }
