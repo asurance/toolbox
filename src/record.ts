@@ -34,6 +34,18 @@ class OperationRecord {
         this.records.set(key, []);
       }
     }
+    const needClear: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)!;
+      if (key.startsWith("tool-") || key.startsWith("tag-")) {
+        if (!this.records.has(key)) {
+          needClear.push(key);
+        }
+      }
+    }
+    for (const key of needClear) {
+      localStorage.removeItem(key);
+    }
     const now = Date.now();
     for (const [key, record] of this.records) {
       let index = 0;
