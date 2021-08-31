@@ -157,6 +157,30 @@ const Tools: Tool[] = [
     tags: ["工具"],
     url: "https://coolors.co/",
   },
+  {
+    name: "iconfont",
+    description: "阿里巴巴矢量图网站",
+    tags: ["Icon"],
+    url: "https://www.iconfont.cn/",
+  },
+  {
+    name: "glsl内置函数",
+    description: "glsl内置函数统计",
+    tags: ["WebGL"],
+    url: "https://blog.csdn.net/bibi333/article/details/48576481",
+  },
+  {
+    name: "github文件下载加速",
+    description: "github文件下载加速",
+    tags: ["工具"],
+    url: "https://gh.api.99988866.xyz/",
+  },
+  {
+    name: "The Book of Shaders",
+    description: "程序纹理教程",
+    tags: ["教程", "WebGL"],
+    url: "https://thebookofshaders.com/?lan=ch",
+  },
 ];
 
 export default Tools;
