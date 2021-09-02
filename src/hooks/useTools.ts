@@ -1,6 +1,6 @@
 import { computed, DeepReadonly, readonly, Ref } from "vue";
 import Tools from "@/config";
-import { Tag, Tool } from "../interfaces";
+import { Tag, Tool } from "@/interfaces";
 
 export default function useTools(): {
   tools: DeepReadonly<Tool[]>;
