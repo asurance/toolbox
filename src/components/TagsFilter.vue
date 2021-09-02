@@ -1,12 +1,10 @@
 <template>
-  <div class="tags">
-    <CheckedTag
-      v-for="tag of showTags"
-      :key="tag"
-      :name="tag"
-      :selectedTag="selectedTag"
-    />
-  </div>
+  <CheckedTag
+    v-for="tag of showTags"
+    :key="tag"
+    :name="tag"
+    :selectedTag="selectedTag"
+  />
 </template>
 <script lang="ts">
 import { computed, defineComponent, PropType } from "vue";

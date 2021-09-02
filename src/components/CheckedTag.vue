@@ -47,3 +47,24 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="less">
+@import "@/variant.less";
+.tag {
+  cursor: pointer;
+  border: 1px solid currentColor;
+  border-radius: 1em;
+  padding: 0.2em 0.8em;
+  margin: 0.2em;
+  background-color: @tag-background;
+  &.selected {
+    color: @font-color-select;
+    background-color: @tag-background-select;
+  }
+  & > svg {
+    width: 1em;
+    height: 1em;
+    position: relative;
+    top: 0.2em;
+  }
+}
+</style>
