@@ -2,7 +2,7 @@ import { Tool } from "../interfaces";
 import { useGet } from "./useGet";
 
 export const queryKey = useGet<
-  [string],
+  [password: string],
   { secretId: string; secretKey: string }
 >(
   (password: string) =>

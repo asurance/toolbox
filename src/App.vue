@@ -1,5 +1,7 @@
 <template>
   <main>
+    <p v-if="isLogin">登录</p>
+    <p v-else>未登录</p>
     <header>Asurance的工具箱</header>
     <SearchBox :searchValue="searchValue" @SearchChange="onSearchChange" />
     <div class="tags">
@@ -17,13 +19,14 @@
   </main>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import ToolCard from "@/components/ToolCard.vue";
 import TagsFilter from "@/components/TagsFilter.vue";
 import SearchBox from "@/components/SearchBox.vue";
 import useTools from "@/hooks/useTools";
 import useSearchFilter from "@/hooks/useSearchFilter";
 import useTagsFilter from "@/hooks/useTagsFilter";
+import user from "./store/user";
 
 export default defineComponent({
   components: { ToolCard, TagsFilter, SearchBox },
@@ -35,12 +38,14 @@ export default defineComponent({
       onSearchChange,
       filteredResult: showTools,
     } = useSearchFilter(filteredTools);
+    const isLogin = computed(() => user.user !== null);
     return {
       tools: showTools,
       tags,
       selectedTag,
       searchValue,
       onSearchChange,
+      isLogin,
     };
   },
 });
