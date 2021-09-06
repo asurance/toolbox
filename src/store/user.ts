@@ -9,7 +9,5 @@ export async function Login(password: string) {
   const result = await queryKey(password);
   if (result.success) {
     user.value = result.data;
-  } else {
-    console.log(result.message);
   }
 }
