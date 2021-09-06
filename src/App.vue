@@ -17,14 +17,13 @@
   </main>
 </template>
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { defineComponent } from "vue";
 import ToolCard from "@/components/ToolCard.vue";
 import TagsFilter from "@/components/TagsFilter.vue";
 import SearchBox from "@/components/SearchBox.vue";
 import useTools from "@/hooks/useTools";
 import useSearchFilter from "@/hooks/useSearchFilter";
 import useTagsFilter from "@/hooks/useTagsFilter";
-import user from "./store/user";
 
 export default defineComponent({
   components: { ToolCard, TagsFilter, SearchBox },
