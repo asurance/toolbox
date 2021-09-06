@@ -8,7 +8,11 @@ export function useGet<ARGS extends Array<unknown>, RESULT>(
     const url = urlBuilder(...args);
     try {
       const response = await fetch(url);
-      return await response.json();
+      if (response.ok) {
+        return await response.json();
+      } else {
+        return { success: false, message: `【请求失败:${response.status}】` };
+      }
     } catch (error) {
       return {
         success: false,
