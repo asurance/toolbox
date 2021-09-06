@@ -1,7 +1,7 @@
 import { ParseError } from "@/util";
 import { APIResult } from "@/interfaces/api";
 
-export function useGet<ARGS extends Array<unknown>, RESULT>(
+export default function useGet<ARGS extends Array<unknown>, RESULT>(
   urlBuilder: (...args: ARGS) => string,
 ): (...args: ARGS) => Promise<APIResult<RESULT>> {
   return async (...args: ARGS) => {

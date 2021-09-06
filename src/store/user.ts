@@ -1,9 +1,15 @@
-import { shallowReactive } from "vue";
+import { shallowRef } from "vue";
+import { queryKey } from "../services";
 
-type UserStore = {
-  user: { secretId: string; secretKey: string } | null;
-};
+type User = { secretId: string; secretKey: string } | null;
 
-export default shallowReactive<UserStore>({
-  user: null,
-});
+export const user = shallowRef<User>(null);
+
+export async function Login(password: string) {
+  const result = await queryKey(password);
+  if (result.success) {
+    user.value = result.data;
+  } else {
+    console.log(result.message);
+  }
+}

@@ -1,14 +1,14 @@
 import { enc, HmacSHA1 } from "crypto-js";
 import { APIResult } from "../interfaces/api";
-import user from "../store/user";
+import { user } from "../store/user";
 import { ParseError } from "../util";
 
-export function useAuthPost<DATA, RESULT>(
+export default function useAuthPost<DATA, RESULT>(
   url: string,
 ): (data: DATA) => Promise<APIResult<RESULT>> {
   return async (data: DATA) => {
-    if (user.user) {
-      const { secretId, secretKey } = user.user;
+    if (user.value) {
+      const { secretId, secretKey } = user.value;
       const now = new Date().toUTCString();
       const source = "toolbox";
       const sign = enc.Base64.stringify(
