@@ -1,7 +1,5 @@
 <template>
   <main>
-    <p v-if="isLogin">登录</p>
-    <p v-else>未登录</p>
     <header>Asurance的工具箱</header>
     <SearchBox :searchValue="searchValue" @SearchChange="onSearchChange" />
     <div class="tags">
@@ -38,14 +36,12 @@ export default defineComponent({
       onSearchChange,
       filteredResult: showTools,
     } = useSearchFilter(filteredTools);
-    const isLogin = computed(() => user.user !== null);
     return {
       tools: showTools,
       tags,
       selectedTag,
       searchValue,
       onSearchChange,
-      isLogin,
     };
   },
 });
