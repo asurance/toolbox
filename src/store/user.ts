@@ -1,5 +1,5 @@
 import { shallowRef } from "vue";
-import { queryKey } from "../services";
+import { queryKey } from "@/services";
 
 type User = { secretId: string; secretKey: string } | null;
 

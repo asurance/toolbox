@@ -1,4 +1,4 @@
-import { APIResult } from "../interfaces/api";
+import { APIResult } from "@/interfaces/api";
 
 export default function useErrorLog<ARGS extends Array<unknown>, RSEULT>(
   fn: (...args: ARGS) => Promise<APIResult<RSEULT>>,

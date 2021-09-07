@@ -1,7 +1,7 @@
 import { enc, HmacSHA1 } from "crypto-js";
-import { APIResult } from "../interfaces/api";
-import { user } from "../store/user";
-import { ParseError } from "../util";
+import { APIResult } from "@/interfaces/api";
+import { user } from "@/store/user";
+import { ParseError } from "@/util";
 
 export default function useAuthPost<DATA, RESULT>(
   url: string,

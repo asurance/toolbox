@@ -1,4 +1,4 @@
-import { Tool } from "../interfaces";
+import { Tool } from "@/interfaces";
 import useErrorLog from "./useErrorLog";
 import useGet from "./useGet";
 
