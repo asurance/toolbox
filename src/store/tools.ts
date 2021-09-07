@@ -1,4 +1,4 @@
-import { reactive, ref, watch } from "vue";
+import { reactive, ref, computed, watchEffect } from "vue";
 import { Tool } from "@/interfaces";
 import { queryConfig } from "@/services";
 
@@ -27,13 +27,23 @@ export const localTools = reactive<ToolStore>(getLocalConfig());
 
 export const remoteTools = ref<ToolStore | null>(null);
 
-watch([remoteTools, localTools], ([nowRemote, nowLocal]) => {
-  if (nowRemote) {
-    if (nowRemote.updateTime > nowLocal.updateTime) {
-      localTools.updateTime = nowRemote.updateTime;
-      localTools.tools = nowRemote.tools;
-      localStorage.setItem("updateTime", `${nowRemote.updateTime}`);
-      localStorage.setItem("tools", JSON.stringify(nowRemote.tools));
+export const tagsSet = computed(() => {
+  const set = new Set<string>();
+  for (const tool of localTools.tools) {
+    for (const tag of tool.tags) {
+      set.add(tag);
+    }
+  }
+  return set;
+});
+
+watchEffect(() => {
+  if (remoteTools.value) {
+    if (remoteTools.value.updateTime > localTools.updateTime) {
+      localTools.updateTime = remoteTools.value.updateTime;
+      localTools.tools = remoteTools.value.tools;
+      localStorage.setItem("updateTime", `${remoteTools.value.updateTime}`);
+      localStorage.setItem("tools", JSON.stringify(remoteTools.value.tools));
     }
   }
 });
