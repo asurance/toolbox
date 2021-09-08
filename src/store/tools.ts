@@ -1,4 +1,4 @@
-import { reactive, ref, computed, watchEffect } from "vue";
+import { reactive, ref, computed } from "vue";
 import { Tool } from "@/interfaces";
 import { queryConfig } from "@/services";
 
@@ -37,21 +37,16 @@ export const tagsSet = computed(() => {
   return set;
 });
 
-watchEffect(() => {
-  if (remoteTools.value) {
+export async function getRemoteConfig() {
+  const result = await queryConfig();
+  if (result.success) {
+    remoteTools.value = result.data;
     if (remoteTools.value.updateTime > localTools.updateTime) {
       localTools.updateTime = remoteTools.value.updateTime;
       localTools.tools = remoteTools.value.tools;
       localStorage.setItem("updateTime", `${remoteTools.value.updateTime}`);
       localStorage.setItem("tools", JSON.stringify(remoteTools.value.tools));
     }
-  }
-});
-
-export async function getRemoteConfig() {
-  const result = await queryConfig();
-  if (result.success) {
-    remoteTools.value = result.data;
   }
   return result;
 }
