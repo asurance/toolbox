@@ -1,4 +1,3 @@
-import { Tag } from "@/interfaces";
 import Record from "@/record";
 
 export function ParseCheckScore(result: number[]): [number, number][] {
@@ -51,7 +50,7 @@ export function GetScore(
   }
 }
 
-export function TagSorter(a: Tag, b: Tag): number {
+export function TagSorter(a: string, b: string): number {
   const aScore = Record.getScore(a, "tag");
   const bScore = Record.getScore(b, "tag");
   if (aScore < bScore) {

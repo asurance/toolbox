@@ -18,17 +18,16 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { Tag } from "@/interfaces";
 import Record from "@/record";
 
 export default defineComponent({
   props: {
     name: {
-      type: String as PropType<Tag>,
+      type: String as PropType<string>,
       required: true,
     },
     selectedTag: {
-      type: Set as PropType<Set<Tag>>,
+      type: Set as PropType<Set<string>>,
       required: true,
     },
   },

@@ -1,23 +1,13 @@
-import { computed, DeepReadonly, readonly, Ref } from "vue";
-import Tools from "@/config";
-import { Tag, Tool } from "@/interfaces";
+import { Ref } from "vue";
+import { Tool } from "@/interfaces";
+import { localTools, tagsSet } from "@/store/tools";
 
 export default function useTools(): {
-  tools: DeepReadonly<Tool[]>;
-  tags: Ref<Set<Tag>>;
+  tools: Tool[];
+  tags: Ref<Set<string>>;
 } {
-  const tools = readonly(Tools);
-  const tags = computed(() => {
-    const set = new Set<Tag>();
-    for (const tool of tools) {
-      for (const tag of tool.tags) {
-        set.add(tag);
-      }
-    }
-    return set;
-  });
   return {
-    tools,
-    tags,
+    tools: localTools.tools,
+    tags: tagsSet,
   };
 }

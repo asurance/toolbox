@@ -25,7 +25,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from "vue";
 import CheckedTag from "@/components/CheckedTag.vue";
-import { Tag, Tool } from "@/interfaces";
+import { Tool } from "@/interfaces";
 import Record from "@/record";
 import { TagSorter } from "@/util";
 
@@ -37,7 +37,7 @@ export default defineComponent({
       required: true,
     },
     selectedTag: {
-      type: Set as PropType<Set<Tag>>,
+      type: Set as PropType<Set<string>>,
       required: true,
     },
     pos: {
