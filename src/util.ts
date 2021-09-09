@@ -1,5 +1,3 @@
-import Record from "@/record";
-
 export function ParseCheckScore(result: number[]): [number, number][] {
   const length = result.length;
   let i = 1;
@@ -47,18 +45,6 @@ export function GetScore(
         i++;
       }
     }
-  }
-}
-
-export function TagSorter(a: string, b: string): number {
-  const aScore = Record.getScore(a, "tag");
-  const bScore = Record.getScore(b, "tag");
-  if (aScore < bScore) {
-    return 1;
-  } else if (aScore > bScore) {
-    return -1;
-  } else {
-    return DefaultSorter(a, b);
   }
 }
 

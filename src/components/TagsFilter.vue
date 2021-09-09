@@ -9,7 +9,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from "vue";
 import CheckedTag from "@/components/CheckedTag.vue";
-import { TagSorter } from "@/util";
+import { DefaultSorter } from "@/util";
 
 export default defineComponent({
   components: { CheckedTag },
@@ -24,7 +24,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const showTags = computed(() => [...props.tags].sort(TagSorter));
+    const showTags = computed(() => [...props.tags].sort(DefaultSorter));
     return {
       showTags,
     };

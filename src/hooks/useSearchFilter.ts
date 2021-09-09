@@ -1,22 +1,6 @@
 import { computed, DeepReadonly, Ref, ref, unref } from "vue";
 import { StoreTool } from "@/interfaces";
 import { DefaultSorter, GetScore } from "@/util";
-import Record from "@/record";
-
-const BackUpSorter = (
-  a: DeepReadonly<StoreTool>,
-  b: DeepReadonly<StoreTool>,
-) => {
-  const aScore = Record.getScore(a.name, "tool");
-  const bScore = Record.getScore(b.name, "tool");
-  if (aScore < bScore) {
-    return 1;
-  } else if (aScore > bScore) {
-    return -1;
-  } else {
-    return DefaultSorter(a.name, b.name);
-  }
-};
 
 export default function useSearchFilter(
   rawTools: DeepReadonly<StoreTool[]> | Ref<DeepReadonly<StoreTool[]>>,
@@ -72,7 +56,7 @@ export default function useSearchFilter(
           } else if (a.score > b.score) {
             return -1;
           } else {
-            return BackUpSorter(a.tool, b.tool);
+            return DefaultSorter(a.tool.name, b.tool.name);
           }
         });
     } else {
@@ -83,7 +67,7 @@ export default function useSearchFilter(
           pos: [],
         }))
         .sort((a, b) => {
-          return BackUpSorter(a.tool, b.tool);
+          return DefaultSorter(a.tool.name, b.tool.name);
         });
     }
   });

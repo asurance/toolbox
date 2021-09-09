@@ -27,7 +27,7 @@ import { computed, defineComponent, PropType } from "vue";
 import CheckedTag from "@/components/CheckedTag.vue";
 import { StoreTool } from "@/interfaces";
 import Record from "@/record";
-import { TagSorter } from "@/util";
+import { DefaultSorter } from "../util";
 
 export default defineComponent({
   components: { CheckedTag },
@@ -52,7 +52,7 @@ export default defineComponent({
     };
     const showTags = computed(() => {
       const tags = [...props.tool.tags];
-      return tags.sort(TagSorter);
+      return tags.sort(DefaultSorter);
     });
     const headerList = computed(() => {
       const list: {
