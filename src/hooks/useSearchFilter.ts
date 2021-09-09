@@ -1,9 +1,12 @@
 import { computed, DeepReadonly, Ref, ref, unref } from "vue";
-import { Tool } from "@/interfaces";
+import { StoreTool } from "@/interfaces";
 import { DefaultSorter, GetScore } from "@/util";
 import Record from "@/record";
 
-const BackUpSorter = (a: DeepReadonly<Tool>, b: DeepReadonly<Tool>) => {
+const BackUpSorter = (
+  a: DeepReadonly<StoreTool>,
+  b: DeepReadonly<StoreTool>,
+) => {
   const aScore = Record.getScore(a.name, "tool");
   const bScore = Record.getScore(b.name, "tool");
   if (aScore < bScore) {
@@ -16,11 +19,11 @@ const BackUpSorter = (a: DeepReadonly<Tool>, b: DeepReadonly<Tool>) => {
 };
 
 export default function useSearchFilter(
-  rawTools: DeepReadonly<Tool[]> | Ref<DeepReadonly<Tool[]>>,
+  rawTools: DeepReadonly<StoreTool[]> | Ref<DeepReadonly<StoreTool[]>>,
 ): {
   filteredResult: Ref<
     {
-      tool: DeepReadonly<Tool>;
+      tool: DeepReadonly<StoreTool>;
       score: number;
       pos: [number, number][];
     }[]

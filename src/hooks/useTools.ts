@@ -1,13 +1,13 @@
 import { Ref } from "vue";
-import { Tool } from "@/interfaces";
-import { localConfig, tagsSet } from "@/store/tools";
+import { StoreTool } from "@/interfaces";
+import { tools, tagsSet } from "@/store/tools";
 
 export default function useTools(): {
-  tools: Tool[];
+  tools: Ref<StoreTool[]>;
   tags: Ref<Set<string>>;
 } {
   return {
-    tools: localConfig.tools,
+    tools,
     tags: tagsSet,
   };
 }

@@ -1,5 +1,5 @@
 export const enum Constant {
-  IdRadix = 36,
+  Radix = 36,
 }
 
 export const enum StorageKey {

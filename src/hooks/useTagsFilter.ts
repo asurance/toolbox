@@ -1,11 +1,11 @@
 import { computed, DeepReadonly, reactive, Ref, unref } from "vue";
-import { Tool } from "@/interfaces";
+import { StoreTool } from "@/interfaces";
 
 export default function useTagFilter(
-  rawTools: DeepReadonly<Tool[]> | Ref<DeepReadonly<Tool>[]>,
+  rawTools: DeepReadonly<StoreTool[]> | Ref<DeepReadonly<StoreTool>[]>,
 ): {
   selectedTag: Set<string>;
-  filteredTools: Ref<DeepReadonly<Tool[]>>;
+  filteredTools: Ref<DeepReadonly<StoreTool[]>>;
 } {
   const selectedTag = reactive(new Set<string>());
   const filteredTools = computed(() => {

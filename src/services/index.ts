@@ -1,4 +1,4 @@
-import { Tool } from "@/interfaces";
+import { RemoteTool } from "@/interfaces";
 import useErrorLog from "./useErrorLog";
 import useGet from "./useGet";
 
@@ -16,7 +16,7 @@ export const queryKey = useErrorLog(
 
 type QueryConfigResult = {
   updateTime: number;
-  tools: Tool[];
+  tools: RemoteTool[];
 };
 
 export const queryConfig = useErrorLog(
