@@ -1,5 +1,5 @@
 import { computed, DeepReadonly, reactive, Ref, unref } from "vue";
-import { StoreTool } from "@/interfaces";
+import { StoreTool } from "@/interfaces/tool";
 
 export default function useTagFilter(
   rawTools: DeepReadonly<StoreTool[]> | Ref<DeepReadonly<StoreTool>[]>,

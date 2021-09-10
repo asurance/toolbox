@@ -1,7 +1,8 @@
 import { ref, computed, watchEffect } from "vue";
-import { RemoteTool, StorageTool, StoreTool } from "@/interfaces";
+import { RemoteTool, StorageTool, StoreTool } from "@/interfaces/tool";
 import { queryConfig } from "@/services";
-import { Constant, StorageKey } from "../interfaces/constant";
+import { Constant, StorageKey } from "@/interfaces/constant";
+import { APIResult, QueryConfigResult } from "@/interfaces/api";
 
 function getUpdateTime() {
   const updateTime = localStorage.getItem(StorageKey.UpdateTime);
@@ -43,6 +44,7 @@ export const toolMap = computed(() => {
   for (const tool of tools.value) {
     map.set(tool._id, tool);
   }
+  return map;
 });
 
 export const tagsSet = computed(() => {
@@ -57,7 +59,7 @@ export const tagsSet = computed(() => {
 
 const remoteTools = ref<RemoteTool[]>();
 
-export async function getRemoteConfig() {
+export async function getRemoteConfig(): Promise<APIResult<QueryConfigResult>> {
   const result = await queryConfig();
   if (result.success) {
     remoteTools.value = result.data.tools;
@@ -72,6 +74,7 @@ export async function getRemoteConfig() {
       }
       for (const tool of result.data.tools) {
         const storageKey = `${StorageKey.ConfigPrefix}${tool._id}`;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { _id, ...rest } = tool;
         localStorage.setItem(storageKey, JSON.stringify(rest));
         needRemove.delete(storageKey);
@@ -104,7 +107,7 @@ watchEffect(() => {
   }
 });
 
-export function insertTool(tool: Omit<StoreTool, "_id">) {
+export function insertTool(tool: Omit<StoreTool, "_id">): void {
   updateTime.value = Date.now();
   const id = safeId.toString(Constant.Radix);
   tools.value.push({ _id: id, ...tool });
@@ -116,26 +119,29 @@ export function insertTool(tool: Omit<StoreTool, "_id">) {
   );
 }
 
-export function updateTool<T extends Partial<StoreTool> & { _id: "string" }>(
+export function updateTool<T extends Partial<Omit<StoreTool, "_id">>>(
+  id: string,
   tool: T,
-) {
-  const targetTool = tools.value.find(({ _id }) => _id === tool._id);
+): void {
+  const targetTool = tools.value.find(({ _id }) => _id === id);
   if (targetTool) {
     updateTime.value = Date.now();
     for (const key in tool) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       targetTool[key] = tool[key];
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { _id, tags, ...rest } = targetTool;
     const storageTool: StorageTool = { ...rest, tags: tags.join(",") };
     localStorage.setItem(
-      `${StorageKey.ConfigPrefix}${tool._id}`,
+      `${StorageKey.ConfigPrefix}${id}`,
       JSON.stringify(storageTool),
     );
   }
 }
 
-export function deleteTool(id: string) {
+export function deleteTool(id: string): void {
   const index = tools.value.findIndex((tool) => tool._id === id);
   if (index >= 0) {
     updateTime.value = Date.now();

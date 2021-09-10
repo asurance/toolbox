@@ -1,5 +1,5 @@
 import { Ref } from "vue";
-import { StoreTool } from "@/interfaces";
+import { StoreTool } from "@/interfaces/tool";
 import { tools, tagsSet } from "@/store/tools";
 
 export default function useTools(): {

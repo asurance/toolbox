@@ -1,9 +1,9 @@
 <template>
   <main>
     <header>Asurance的工具箱</header>
-    <SearchBox :searchValue="searchValue" @SearchChange="onSearchChange" />
+    <InputSearch :searchValue="searchValue" @SearchChange="onSearchChange" />
     <div class="tags">
-      <TagsFilter :tags="tags" :selectedTag="selectedTag" />
+      <TagGroup :tags="tags" :selected="selectedTag" />
     </div>
     <div class="cards">
       <ToolCard
@@ -17,17 +17,21 @@
   </main>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from "vue";
 import ToolCard from "@/components/ToolCard.vue";
-import TagsFilter from "@/components/TagsFilter.vue";
-import SearchBox from "@/components/SearchBox.vue";
+import TagGroup from "@/components/TagGroup.vue";
+import InputSearch from "@/components/InputSearch.vue";
 import useTools from "@/hooks/useTools";
 import useSearchFilter from "@/hooks/useSearchFilter";
 import useTagsFilter from "@/hooks/useTagsFilter";
+import { getRemoteConfig } from "./store/tools";
 
 export default defineComponent({
-  components: { ToolCard, TagsFilter, SearchBox },
+  components: { ToolCard, TagGroup, InputSearch },
   setup() {
+    onMounted(() => {
+      getRemoteConfig();
+    });
     const { tools: rawTools, tags } = useTools();
     const { selectedTag, filteredTools } = useTagsFilter(rawTools);
     const {

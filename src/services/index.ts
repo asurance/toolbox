@@ -1,11 +1,6 @@
-import { RemoteTool } from "@/interfaces";
+import { QueryKeyResult, QueryConfigResult } from "@/interfaces/api";
 import useErrorLog from "./useErrorLog";
 import useGet from "./useGet";
-
-type QueryKeyResult = {
-  secretId: string;
-  secretKey: string;
-};
 
 export const queryKey = useErrorLog(
   useGet<[password: string], QueryKeyResult>(
@@ -13,11 +8,6 @@ export const queryKey = useErrorLog(
       `https://service-o4djoxjf-1255580031.sh.apigw.tencentcs.com/release/queryKey?app=toolbox&password=${password}`,
   ),
 );
-
-type QueryConfigResult = {
-  updateTime: number;
-  tools: RemoteTool[];
-};
 
 export const queryConfig = useErrorLog(
   useGet<[], QueryConfigResult>(

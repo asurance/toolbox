@@ -1,8 +1,5 @@
 <template>
-  <div
-    :class="['tag', selectedTag.has(name) ? 'selected' : '']"
-    @click.stop="onClick"
-  >
+  <div :class="['tag', selected ? 'selected' : '']" @click.stop="onClickTag">
     <svg
       viewBox="0 0 1024 1024"
       version="1.1"
@@ -18,7 +15,6 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import Record from "@/record";
 
 export default defineComponent({
   props: {
@@ -26,22 +22,15 @@ export default defineComponent({
       type: String as PropType<string>,
       required: true,
     },
-    selectedTag: {
-      type: Set as PropType<Set<string>>,
-      required: true,
-    },
+    selected: Boolean,
+    onClick: Function as PropType<(name: string) => void>,
   },
   setup(props) {
-    const onClick = () => {
-      if (props.selectedTag.has(props.name)) {
-        props.selectedTag.delete(props.name);
-      } else {
-        Record.addRecord(props.name, "tag");
-        props.selectedTag.add(props.name);
-      }
+    const onClickTag = () => {
+      props.onClick?.(props.name);
     };
     return {
-      onClick,
+      onClickTag,
     };
   },
 });

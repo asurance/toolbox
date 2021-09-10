@@ -12,25 +12,18 @@
       {{ tool.description }}
     </p>
     <div class="tags">
-      <CheckedTag
-        v-for="tag in showTags"
-        :key="tag"
-        :name="tag"
-        :selectedTag="selectedTag"
-      />
+      <TagGroup :tags="new Set(tool.tags)" :selected="selectedTag" />
     </div>
   </section>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from "vue";
-import CheckedTag from "@/components/CheckedTag.vue";
-import { StoreTool } from "@/interfaces";
-import Record from "@/record";
-import { DefaultSorter } from "../util";
+import TagGroup from "@/components/TagGroup.vue";
+import { StoreTool } from "@/interfaces/tool";
 
 export default defineComponent({
-  components: { CheckedTag },
+  components: { TagGroup },
   props: {
     tool: {
       type: Object as PropType<StoreTool>,
@@ -47,13 +40,8 @@ export default defineComponent({
   },
   setup(props) {
     const onClickCard = () => {
-      Record.addRecord(props.tool.name, "tool");
       window.open(props.tool.url);
     };
-    const showTags = computed(() => {
-      const tags = [...props.tool.tags];
-      return tags.sort(DefaultSorter);
-    });
     const headerList = computed(() => {
       const list: {
         content: string;
@@ -104,7 +92,6 @@ export default defineComponent({
     });
     return {
       onClickCard,
-      showTags,
       headerList,
     };
   },

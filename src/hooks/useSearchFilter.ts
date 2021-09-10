@@ -1,5 +1,5 @@
 import { computed, DeepReadonly, Ref, ref, unref } from "vue";
-import { StoreTool } from "@/interfaces";
+import { StoreTool } from "@/interfaces/tool";
 import { DefaultSorter, GetScore } from "@/util";
 
 export default function useSearchFilter(
