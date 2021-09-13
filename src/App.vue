@@ -1,8 +1,8 @@
 <template>
   <main>
     <div class="menu">
-      <Download />
-      <Loading />
+      <Download v-if="!configSuccess" @Click="requestConfig" />
+      <Loading v-if="configLoading" />
     </div>
     <header>Asurance的工具箱</header>
     <InputSearch :searchValue="searchValue" @SearchChange="onSearchChange" />
@@ -31,13 +31,17 @@ import useTools from "@/hooks/useTools";
 import useSearchFilter from "@/hooks/useSearchFilter";
 import useTagsFilter from "@/hooks/useTagsFilter";
 import { getRemoteConfig } from "@/store/tools";
+import useRequest from "@/hooks/useRequest";
 
 export default defineComponent({
   components: { ToolCard, TagGroup, InputSearch, Download, Loading },
   setup() {
-    onMounted(() => {
-      getRemoteConfig();
-    });
+    const {
+      loading: configLoading,
+      success: configSuccess,
+      send: requestConfig,
+    } = useRequest(getRemoteConfig, false);
+    onMounted(requestConfig);
     const { tools: rawTools, tags } = useTools();
     const { selectedTag, filteredTools } = useTagsFilter(rawTools);
     const {
@@ -51,16 +55,25 @@ export default defineComponent({
       selectedTag,
       searchValue,
       onSearchChange,
+      configLoading,
+      configSuccess,
+      requestConfig,
     };
   },
 });
 </script>
 <style lang="less">
 @import "@/variant.less";
+@menu-svg-size: 2em;
 main {
+  & > .menu {
+    min-height: @menu-svg-size;
+    text-align: right;
+  }
   & > .menu > svg {
-    width: 10em;
-    height: 10em;
+    width: @menu-svg-size;
+    height: @menu-svg-size;
+    margin-right: 0.4em;
   }
 
   & > header {
