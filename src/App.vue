@@ -1,5 +1,9 @@
 <template>
   <main>
+    <div class="menu">
+      <Download />
+      <Loading />
+    </div>
     <header>Asurance的工具箱</header>
     <InputSearch :searchValue="searchValue" @SearchChange="onSearchChange" />
     <div class="tags">
@@ -21,13 +25,15 @@ import { defineComponent, onMounted } from "vue";
 import ToolCard from "@/components/ToolCard.vue";
 import TagGroup from "@/components/TagGroup.vue";
 import InputSearch from "@/components/InputSearch.vue";
+import Download from "@/svg/Download.vue";
+import Loading from "@/svg/Loading.vue";
 import useTools from "@/hooks/useTools";
 import useSearchFilter from "@/hooks/useSearchFilter";
 import useTagsFilter from "@/hooks/useTagsFilter";
-import { getRemoteConfig } from "./store/tools";
+import { getRemoteConfig } from "@/store/tools";
 
 export default defineComponent({
-  components: { ToolCard, TagGroup, InputSearch },
+  components: { ToolCard, TagGroup, InputSearch, Download, Loading },
   setup() {
     onMounted(() => {
       getRemoteConfig();
@@ -52,6 +58,11 @@ export default defineComponent({
 <style lang="less">
 @import "@/variant.less";
 main {
+  & > .menu > svg {
+    width: 10em;
+    height: 10em;
+  }
+
   & > header {
     display: flex;
     justify-content: center;
