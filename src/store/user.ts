@@ -13,3 +13,7 @@ export async function Login(password: string): Promise<void> {
     user.value = result.data;
   }
 }
+
+export function Logout(): void {
+  user.value = null;
+}

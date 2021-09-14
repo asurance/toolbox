@@ -6,5 +6,6 @@ declare module "*.vue" {
 }
 
 interface Window {
-  login(password): Promise<void>;
+  login(password: string): Promise<void>;
+  logout(): void;
 }

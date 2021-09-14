@@ -16,6 +16,9 @@
         :tool="tool"
         :highlights="highlights"
         :selectedTag="selectedTag"
+        :editable="editable"
+        @Click="onClickCard"
+        @Delete="onDeleteTool"
       />
     </div>
   </main>
@@ -27,19 +30,27 @@ import TagGroup from "@/components/TagGroup.vue";
 import InputSearch from "@/components/InputSearch.vue";
 import Download from "@/svg/Download.vue";
 import Loading from "@/svg/Loading.vue";
-import { getRemoteConfig, tools, tagsSet } from "@/store/tools";
+import { getRemoteConfig, tools, tagsSet, deleteTool } from "@/store/tools";
 import useRequest from "@/hooks/useRequest";
 import useScorer from "@/hooks/useScorer";
+import { isLogin } from "@/store/user";
+import { StoreTool } from "./interfaces/tool";
 
 export default defineComponent({
-  components: { ToolCard, TagGroup, InputSearch, Download, Loading },
+  components: {
+    ToolCard,
+    TagGroup,
+    InputSearch,
+    Download,
+    Loading,
+  },
   setup() {
     const {
       loading: configLoading,
       success: configSuccess,
       send: requestConfig,
     } = useRequest(getRemoteConfig, true);
-    // onMounted(requestConfig);
+    onMounted(requestConfig);
     const searchValue = ref("");
     const onSearchChange = (evt: Event) => {
       const target = evt.target as HTMLInputElement;
@@ -61,6 +72,12 @@ export default defineComponent({
       }
     });
     const toolScore = useScorer(showTools, searchValue);
+    const onClickCard = (tool: StoreTool) => {
+      window.open(tool.url);
+    };
+    const onDeleteTool = (tool: StoreTool) => {
+      deleteTool(tool._id);
+    };
     return {
       configLoading,
       configSuccess,
@@ -70,6 +87,9 @@ export default defineComponent({
       selectedTag: selectedTagSet,
       searchValue,
       onSearchChange,
+      editable: isLogin,
+      onClickCard,
+      onDeleteTool,
     };
   },
 });

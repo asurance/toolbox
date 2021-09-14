@@ -1,12 +1,16 @@
 <template>
   <section class="card" :title="tool.url" @click="onClickCard">
     <header>
-      <span
-        v-for="({ str, flag }, index) of highlights"
-        :key="index"
-        :class="flag ? 'highlight' : ''"
-        >{{ str }}</span
-      >
+      <div class="title">
+        <span
+          v-for="({ str, flag }, index) of highlights"
+          :key="index"
+          :class="flag ? 'highlight' : ''"
+        >
+          {{ str }}
+        </span>
+      </div>
+      <Delete v-if="editable" @Click="onClickDelete" />
     </header>
     <p>
       {{ tool.description }}
@@ -20,11 +24,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import TagGroup from "@/components/TagGroup.vue";
+import Delete from "@/svg/Delete.vue";
 import { StoreTool } from "@/interfaces/tool";
 import { Hightlight } from "@/Scorer";
 
 export default defineComponent({
-  components: { TagGroup },
+  components: { TagGroup, Delete },
   props: {
     tool: {
       type: Object as PropType<StoreTool>,
@@ -38,13 +43,23 @@ export default defineComponent({
       type: Array as PropType<Hightlight[]>,
       required: true,
     },
+    editable: {
+      type: Boolean,
+      required: true,
+    },
+    onClick: Function as PropType<(tool: StoreTool) => void>,
+    onDelete: Function as PropType<(tool: StoreTool) => void>,
   },
   setup(props) {
     const onClickCard = () => {
-      window.open(props.tool.url);
+      props.onClick?.(props.tool);
+    };
+    const onClickDelete = () => {
+      props.onDelete?.(props.tool);
     };
     return {
       onClickCard,
+      onClickDelete,
     };
   },
 });
@@ -83,8 +98,29 @@ export default defineComponent({
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
-    .highlight {
-      color: @font-color-select;
+    position: relative;
+    & > .title {
+      & > .highlight {
+        color: @font-color-select;
+      }
+    }
+    & > {
+      svg {
+        width: 1em;
+        height: 1em;
+        position: absolute;
+        top: 0.15em;
+        right: -0.3em;
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+    }
+  }
+  &:hover > header {
+    & > {
+      svg {
+        opacity: 1;
+      }
     }
   }
   & > p {
