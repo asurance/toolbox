@@ -73,7 +73,9 @@ export default defineComponent({
     });
     const toolScore = useScorer(showTools, searchValue);
     const onClickCard = (tool: StoreTool) => {
-      window.open(tool.url);
+      if (!isLogin.value) {
+        window.open(tool.url);
+      }
     };
     const onDeleteTool = (tool: StoreTool) => {
       deleteTool(tool._id);
