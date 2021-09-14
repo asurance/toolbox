@@ -11,27 +11,25 @@
     </div>
     <div class="cards">
       <ToolCard
-        v-for="({ tool, pos }, index) of tools"
+        v-for="({ tool, highlights }, index) of tools"
         :key="index"
         :tool="tool"
-        :pos="pos"
+        :highlights="highlights"
         :selectedTag="selectedTag"
       />
     </div>
   </main>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { computed, defineComponent, onMounted, reactive, ref } from "vue";
 import ToolCard from "@/components/ToolCard.vue";
 import TagGroup from "@/components/TagGroup.vue";
 import InputSearch from "@/components/InputSearch.vue";
 import Download from "@/svg/Download.vue";
 import Loading from "@/svg/Loading.vue";
-import useTools from "@/hooks/useTools";
-import useSearchFilter from "@/hooks/useSearchFilter";
-import useTagsFilter from "@/hooks/useTagsFilter";
-import { getRemoteConfig } from "@/store/tools";
+import { getRemoteConfig, tools, tagsSet } from "@/store/tools";
 import useRequest from "@/hooks/useRequest";
+import useScorer from "@/hooks/useScorer";
 
 export default defineComponent({
   components: { ToolCard, TagGroup, InputSearch, Download, Loading },
@@ -40,24 +38,38 @@ export default defineComponent({
       loading: configLoading,
       success: configSuccess,
       send: requestConfig,
-    } = useRequest(getRemoteConfig, false);
-    onMounted(requestConfig);
-    const { tools: rawTools, tags } = useTools();
-    const { selectedTag, filteredTools } = useTagsFilter(rawTools);
-    const {
-      searchValue,
-      onSearchChange,
-      filteredResult: showTools,
-    } = useSearchFilter(filteredTools);
+    } = useRequest(getRemoteConfig, true);
+    // onMounted(requestConfig);
+    const searchValue = ref("");
+    const onSearchChange = (evt: Event) => {
+      const target = evt.target as HTMLInputElement;
+      searchValue.value = target.value;
+    };
+    const selectedTagSet = reactive(new Set<string>());
+    const showTools = computed(() => {
+      if (selectedTagSet.size > 0) {
+        return tools.value.filter((tool) => {
+          for (const tag of selectedTagSet) {
+            if (!tool.tags.includes(tag)) {
+              return false;
+            }
+          }
+          return true;
+        });
+      } else {
+        return tools.value;
+      }
+    });
+    const toolScore = useScorer(showTools, searchValue);
     return {
-      tools: showTools,
-      tags,
-      selectedTag,
-      searchValue,
-      onSearchChange,
       configLoading,
       configSuccess,
       requestConfig,
+      tools: toolScore,
+      tags: tagsSet,
+      selectedTag: selectedTagSet,
+      searchValue,
+      onSearchChange,
     };
   },
 });

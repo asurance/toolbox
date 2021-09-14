@@ -2,10 +2,10 @@
   <section class="card" :title="tool.url" @click="onClickCard">
     <header>
       <span
-        v-for="({ content, isHighlight }, index) of headerList"
+        v-for="({ str, flag }, index) of highlights"
         :key="index"
-        :class="isHighlight ? 'highlight' : ''"
-        >{{ content }}</span
+        :class="flag ? 'highlight' : ''"
+        >{{ str }}</span
       >
     </header>
     <p>
@@ -18,9 +18,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from "vue";
+import { defineComponent, PropType } from "vue";
 import TagGroup from "@/components/TagGroup.vue";
 import { StoreTool } from "@/interfaces/tool";
+import { Hightlight } from "@/Scorer";
 
 export default defineComponent({
   components: { TagGroup },
@@ -33,8 +34,8 @@ export default defineComponent({
       type: Set as PropType<Set<string>>,
       required: true,
     },
-    pos: {
-      type: Array as PropType<[number, number][]>,
+    highlights: {
+      type: Array as PropType<Hightlight[]>,
       required: true,
     },
   },
@@ -42,57 +43,8 @@ export default defineComponent({
     const onClickCard = () => {
       window.open(props.tool.url);
     };
-    const headerList = computed(() => {
-      const list: {
-        content: string;
-        isHighlight: boolean;
-      }[] = [];
-      if (props.pos.length > 0) {
-        if (props.pos[0][0] > 0) {
-          list.push({
-            content: props.tool.name.slice(0, props.pos[0][0]),
-            isHighlight: false,
-          });
-        }
-        list.push({
-          content: props.tool.name.slice(props.pos[0][0], props.pos[0][1] + 1),
-          isHighlight: true,
-        });
-        for (let i = 1; i < props.pos.length; i++) {
-          list.push({
-            content: props.tool.name.slice(
-              props.pos[i - 1][1] + 1,
-              props.pos[i][0],
-            ),
-            isHighlight: false,
-          });
-          list.push({
-            content: props.tool.name.slice(
-              props.pos[i][0],
-              props.pos[i][1] + 1,
-            ),
-            isHighlight: true,
-          });
-        }
-        if (props.pos[props.pos.length - 1][1] < props.tool.name.length - 1) {
-          list.push({
-            content: props.tool.name.slice(
-              props.pos[props.pos.length - 1][1] + 1,
-            ),
-            isHighlight: false,
-          });
-        }
-      } else {
-        list.push({
-          content: props.tool.name,
-          isHighlight: false,
-        });
-      }
-      return list;
-    });
     return {
       onClickCard,
-      headerList,
     };
   },
 });
@@ -131,7 +83,7 @@ export default defineComponent({
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
-    .highight {
+    .highlight {
       color: @font-color-select;
     }
   }
