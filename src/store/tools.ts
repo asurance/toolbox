@@ -59,6 +59,18 @@ export const tagsSet = computed(() => {
 
 const remoteTools = ref<RemoteTool[] | null>(null);
 
+export const remoteToolMap = computed(() => {
+  if (remoteTools.value) {
+    const map = new Map<string, RemoteTool>();
+    for (const tool of remoteTools.value) {
+      map.set(tool._id, tool);
+    }
+    return map;
+  } else {
+    return null;
+  }
+});
+
 export async function getRemoteConfig(): Promise<APIResult<QueryConfigResult>> {
   const result = await queryConfig();
   if (result.success) {
