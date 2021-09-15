@@ -55,7 +55,7 @@ export default defineComponent({
       success: configSuccess,
       send: requestConfig,
     } = useRequest(getRemoteConfig, true);
-    // onMounted(requestConfig);
+    onMounted(requestConfig);
     const searchValue = ref("");
     const onSearchChange = (evt: Event) => {
       const target = evt.target as HTMLInputElement;

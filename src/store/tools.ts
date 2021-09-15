@@ -1,4 +1,11 @@
-import { ref, computed, watchEffect } from "vue";
+import {
+  ref,
+  computed,
+  watchEffect,
+  watch,
+  WatchStopHandle,
+  reactive,
+} from "vue";
 import { RemoteTool, StorageTool, StoreTool } from "@/interfaces/tool";
 import { queryConfig } from "@/services";
 import { Constant, StorageKey } from "@/interfaces/constant";
@@ -15,11 +22,8 @@ function getUpdateTime() {
 
 export const updateTime = ref(getUpdateTime());
 
-watchEffect(() => {
-  localStorage.setItem(
-    StorageKey.UpdateTime,
-    updateTime.value.toString(Constant.Radix),
-  );
+watch(updateTime, (time) => {
+  localStorage.setItem(StorageKey.UpdateTime, time.toString(Constant.Radix));
 });
 
 function getLocalTools() {
@@ -38,6 +42,37 @@ function getLocalTools() {
 }
 
 export const tools = ref<StoreTool[]>(getLocalTools());
+
+const toolWatchMap = new Map<string, WatchStopHandle>();
+
+function watchTool(tool: StoreTool, immediate = false) {
+  const stopHandler = watch(
+    tool,
+    (tool) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { _id, tags, ...rest } = tool;
+      const storageTool: StorageTool = { ...rest, tags: tags.join(",") };
+      localStorage.setItem(
+        `${StorageKey.ConfigPrefix}${tool._id}`,
+        JSON.stringify(storageTool),
+      );
+    },
+    {
+      immediate,
+    },
+  );
+  toolWatchMap.set(tool._id, stopHandler);
+}
+
+function stopWatch(id: string) {
+  toolWatchMap.get(id)?.();
+  toolWatchMap.delete(id);
+  localStorage.removeItem(`${StorageKey.ConfigPrefix}${id}`);
+}
+
+for (const tool of tools.value) {
+  watchTool(tool);
+}
 
 export const toolMap = computed(() => {
   const map = new Map<string, StoreTool>();
@@ -122,33 +157,9 @@ watchEffect(() => {
 export function insertTool(tool: Omit<StoreTool, "_id">): void {
   updateTime.value = Date.now();
   const id = safeId.toString(Constant.Radix);
-  tools.value.push({ _id: id, ...tool });
-  const { tags, ...rest } = tool;
-  const storageTool: StorageTool = { ...rest, tags: tags.join(",") };
-  localStorage.setItem(
-    `${StorageKey.ConfigPrefix}${id}`,
-    JSON.stringify(storageTool),
-  );
-}
-
-export function updateTool(tool: StoreTool): void {
-  const targetTool = tools.value.find(({ _id }) => _id === tool._id);
-  if (targetTool) {
-    updateTime.value = Date.now();
-    for (const _ in tool) {
-      const key = _ as keyof StoreTool;
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      targetTool[key] = tool[key];
-    }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { _id, tags, ...rest } = targetTool;
-    const storageTool: StorageTool = { ...rest, tags: tags.join(",") };
-    localStorage.setItem(
-      `${StorageKey.ConfigPrefix}${tool._id}`,
-      JSON.stringify(storageTool),
-    );
-  }
+  const createdTool = reactive({ _id: id, ...tool });
+  tools.value.push(createdTool);
+  watchTool(createdTool, true);
 }
 
 export function deleteTool(id: string): void {
@@ -156,6 +167,6 @@ export function deleteTool(id: string): void {
   if (index >= 0) {
     updateTime.value = Date.now();
     tools.value.splice(index, 1);
-    localStorage.removeItem(`${StorageKey.ConfigPrefix}${id}`);
+    stopWatch(id);
   }
 }
