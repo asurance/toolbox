@@ -145,6 +145,7 @@ main {
   align-content: space-around;
   align-items: stretch;
   justify-items: stretch;
+  padding-bottom: 2em;
   @media (max-width: @xl) {
     grid-template-columns: repeat(3, 18em);
   }
