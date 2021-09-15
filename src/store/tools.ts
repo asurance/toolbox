@@ -131,14 +131,12 @@ export function insertTool(tool: Omit<StoreTool, "_id">): void {
   );
 }
 
-export function updateTool<T extends Partial<Omit<StoreTool, "_id">>>(
-  id: string,
-  tool: T,
-): void {
-  const targetTool = tools.value.find(({ _id }) => _id === id);
+export function updateTool(tool: StoreTool): void {
+  const targetTool = tools.value.find(({ _id }) => _id === tool._id);
   if (targetTool) {
     updateTime.value = Date.now();
-    for (const key in tool) {
+    for (const _ in tool) {
+      const key = _ as keyof StoreTool;
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       targetTool[key] = tool[key];
@@ -147,7 +145,7 @@ export function updateTool<T extends Partial<Omit<StoreTool, "_id">>>(
     const { _id, tags, ...rest } = targetTool;
     const storageTool: StorageTool = { ...rest, tags: tags.join(",") };
     localStorage.setItem(
-      `${StorageKey.ConfigPrefix}${id}`,
+      `${StorageKey.ConfigPrefix}${tool._id}`,
       JSON.stringify(storageTool),
     );
   }
