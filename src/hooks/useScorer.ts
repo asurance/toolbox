@@ -1,7 +1,6 @@
 import { Ref, computed } from "vue";
 import { Hightlight, Scorer } from "@/Scorer";
 import { StoreTool } from "@/interfaces/tool";
-import { DefaultSorter } from "@/util";
 
 const scorer = new Scorer();
 
@@ -27,22 +26,14 @@ export default function useScorer(
         })
         .filter((result) => result.score > 0)
         .sort((a, b) => {
-          if (a.score < b.score) {
-            return 1;
-          } else if (a.score > b.score) {
-            return -1;
-          } else {
-            return DefaultSorter(a.tool.name, b.tool.name);
-          }
+          return b.score - a.score;
         });
     } else {
-      return tools.value
-        .sort((a, b) => DefaultSorter(a.name, b.name))
-        .map<ToolWithScore>((tool) => ({
-          tool,
-          score: 0,
-          highlights: [{ str: tool.name, flag: false }],
-        }));
+      return tools.value.map<ToolWithScore>((tool) => ({
+        tool,
+        score: 0,
+        highlights: [{ str: tool.name, flag: false }],
+      }));
     }
   });
   return scoreResult;

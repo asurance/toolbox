@@ -154,12 +154,19 @@ watchEffect(() => {
   }
 });
 
-export function insertTool(tool: Omit<StoreTool, "_id">): void {
+const defaultTool: Omit<StoreTool, "_id"> = {
+  name: "",
+  url: "",
+  tags: [],
+  description: "",
+};
+
+export function insertTool(): void {
   updateTime.value = Date.now();
   const id = safeId.toString(Constant.Radix);
-  const createdTool = reactive({ _id: id, ...tool });
-  tools.value.push(createdTool);
-  watchTool(createdTool, true);
+  const tool = reactive({ _id: id, ...defaultTool });
+  tools.value.push(tool);
+  watchTool(tool, true);
 }
 
 export function deleteTool(id: string): void {

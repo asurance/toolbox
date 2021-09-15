@@ -19,6 +19,7 @@
       @Click="onClickCard"
       @Delete="onDeleteTool"
     />
+    <NewCard v-if="editable" @Click="onInsertTool" />
   </main>
   <EditModal
     v-if="editable && modalTool"
@@ -32,9 +33,16 @@ import ToolCard from "@/components/ToolCard.vue";
 import TagGroup from "@/components/TagGroup.vue";
 import InputSearch from "@/components/InputSearch.vue";
 import EditModal from "@/components/EditModal.vue";
+import NewCard from "@/components/NewCard.vue";
 import Download from "@/svg/Download.vue";
 import Loading from "@/svg/Loading.vue";
-import { getRemoteConfig, tools, tagsSet, deleteTool } from "@/store/tools";
+import {
+  getRemoteConfig,
+  tools,
+  tagsSet,
+  deleteTool,
+  insertTool,
+} from "@/store/tools";
 import useRequest from "@/hooks/useRequest";
 import useScorer from "@/hooks/useScorer";
 import { isLogin } from "@/store/user";
@@ -48,6 +56,7 @@ export default defineComponent({
     Download,
     Loading,
     EditModal,
+    NewCard,
   },
   setup() {
     const {
@@ -88,6 +97,9 @@ export default defineComponent({
     const onCloseModal = () => {
       modalTool.value = null;
     };
+    const onInsertTool = () => {
+      insertTool();
+    };
     const onDeleteTool = (tool: StoreTool) => {
       deleteTool(tool._id);
     };
@@ -102,6 +114,7 @@ export default defineComponent({
       onSearchChange,
       editable: isLogin,
       onClickCard,
+      onInsertTool,
       onDeleteTool,
       modalTool,
       onCloseModal,
