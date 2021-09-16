@@ -1,6 +1,6 @@
 <template>
   <Tag
-    v-for="tag of showTags"
+    v-for="tag of tags"
     :key="tag"
     :name="tag"
     :selected="selected.has(tag)"
@@ -8,15 +8,14 @@
   />
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType } from "vue";
+import { defineComponent, PropType } from "vue";
 import Tag from "@/components/Tag.vue";
-import { DefaultSorter } from "@/util";
 
 export default defineComponent({
   components: { Tag },
   props: {
     tags: {
-      type: Set as PropType<Set<string>>,
+      type: Array as PropType<string[]>,
       required: true,
     },
     selected: {
@@ -25,7 +24,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const showTags = computed(() => [...props.tags].sort(DefaultSorter));
     const onClickTag = (name: string) => {
       if (props.selected.has(name)) {
         props.selected.delete(name);
@@ -34,7 +32,6 @@ export default defineComponent({
       }
     };
     return {
-      showTags,
       onClickTag,
     };
   },

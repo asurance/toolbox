@@ -10,6 +10,7 @@ import { RemoteTool, StorageTool, StoreTool } from "@/interfaces/tool";
 import { queryConfig } from "@/services";
 import { Constant, StorageKey } from "@/interfaces/constant";
 import { APIResult, QueryConfigResult } from "@/interfaces/api";
+import { DefaultSorter } from "@/util";
 
 function getUpdateTime() {
   const updateTime = localStorage.getItem(StorageKey.UpdateTime);
@@ -82,14 +83,14 @@ export const toolMap = computed(() => {
   return map;
 });
 
-export const tagsSet = computed(() => {
+export const allTags = computed(() => {
   const set = new Set<string>();
   for (const tool of tools.value) {
     for (const tag of tool.tags) {
       set.add(tag);
     }
   }
-  return set;
+  return [...set].sort(DefaultSorter);
 });
 
 const remoteTools = ref<RemoteTool[] | null>(null);

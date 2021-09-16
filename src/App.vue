@@ -39,7 +39,7 @@ import Loading from "@/svg/Loading.vue";
 import {
   getRemoteConfig,
   tools,
-  tagsSet,
+  allTags,
   deleteTool,
   insertTool,
 } from "@/store/tools";
@@ -110,7 +110,7 @@ export default defineComponent({
       configSuccess,
       requestConfig,
       tools: toolScore,
-      tags: tagsSet,
+      tags: allTags,
       selectedTag: selectedTagSet,
       searchValue,
       onSearchChange,

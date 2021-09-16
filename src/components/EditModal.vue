@@ -13,7 +13,12 @@
           </label>
           <label>
             <span>标签：</span>
-            <input />
+            <Select
+              :options="allTags"
+              :selected="form.tags"
+              @Add="onTagAdd"
+              @Delete="onTagDelete"
+            />
           </label>
           <label>
             <span>描述：</span>
@@ -29,9 +34,12 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { StoreTool } from "../interfaces/tool";
+import Select from "@/components/Select.vue";
+import { allTags } from "@/store/tools";
+import { StoreTool } from "@/interfaces/tool";
 
 export default defineComponent({
+  components: { Select },
   props: {
     tool: {
       type: Object as PropType<StoreTool>,
@@ -43,9 +51,23 @@ export default defineComponent({
     const onClickClose = () => {
       props.onClose?.();
     };
+    // eslint-disable-next-line vue/no-setup-props-destructure
+    const form = props.tool;
+    const onTagAdd = (option: string) => {
+      form.tags.push(option);
+    };
+    const onTagDelete = (option: string) => {
+      const index = form.tags.indexOf(option);
+      if (index >= 0) {
+        form.tags.splice(index, 1);
+      }
+    };
     return {
       onClickClose,
-      form: props.tool,
+      form,
+      allTags,
+      onTagAdd,
+      onTagDelete,
     };
   },
 });

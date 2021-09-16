@@ -16,7 +16,7 @@
       {{ tool.description }}
     </p>
     <div class="tags">
-      <TagGroup :tags="new Set(tool.tags)" :selected="selectedTag" />
+      <TagGroup :tags="tool.tags" :selected="selectedTag" />
     </div>
   </section>
 </template>
