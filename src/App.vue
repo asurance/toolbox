@@ -91,7 +91,9 @@ export default defineComponent({
       if (isLogin.value) {
         modalTool.value = tool;
       } else {
-        window.open(tool.url);
+        if (tool.url) {
+          window.open(tool.url);
+        }
       }
     };
     const onCloseModal = () => {
