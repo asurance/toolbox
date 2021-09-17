@@ -1,13 +1,15 @@
 import { RemoteTool } from "@/interfaces/tool";
 import { remoteToolMap, toolMap } from "@/store/tools";
-import { DiffOpr } from "@/interfaces/diff";
+import { UpdateData } from "@/interfaces/diff";
 
-function diff() {
-  const diffs: DiffOpr[] = [];
+export function diff(): Partial<UpdateData> {
+  const inserts: RemoteTool[] = [];
+  const updates: (Partial<RemoteTool> & { _id: string })[] = [];
+  const deletes: string[] = [];
   if (remoteToolMap.value) {
     for (const remoteId of remoteToolMap.value.keys()) {
       if (!toolMap.value.has(remoteId)) {
-        diffs.push({ type: "delete", data: remoteId });
+        deletes.push(remoteId);
       }
     }
     for (const [id, tool] of toolMap.value) {
@@ -26,22 +28,26 @@ function diff() {
         for (const _ in remoteTool) {
           const key = _ as keyof RemoteTool;
           if (remoteTool[key] !== expectRemoteTool[key]) {
-            updateData[key] = remoteTool[key];
+            updateData[key] = expectRemoteTool[key];
           }
         }
         if (Object.keys(updateData).length > 1) {
-          diffs.push({
-            type: "update",
-            data: updateData,
-          });
+          updates.push(updateData);
         }
       } else {
-        diffs.push({
-          type: "insert",
-          data: expectRemoteTool,
-        });
+        inserts.push(expectRemoteTool);
       }
     }
   }
-  return diffs;
+  const result: Partial<UpdateData> = {};
+  if (inserts.length > 0) {
+    result.inserts = inserts;
+  }
+  if (updates.length > 0) {
+    result.updates = updates;
+  }
+  if (deletes.length > 0) {
+    result.deletes = deletes;
+  }
+  return result;
 }

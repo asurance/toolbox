@@ -1,7 +1,8 @@
 <template>
   <div class="menu">
     <Download v-if="!configSuccess" @Click="requestConfig" />
-    <Loading v-if="configLoading" />
+    <Loading v-if="configLoading || uploading" />
+    <Upload v-else-if="editable && configSuccess" @click="upload" />
   </div>
   <header>Asurance的工具箱</header>
   <InputSearch :searchValue="searchValue" @SearchChange="onSearchChange" />
@@ -36,17 +37,19 @@ import EditModal from "@/components/EditModal.vue";
 import NewCard from "@/components/NewCard.vue";
 import Download from "@/svg/Download.vue";
 import Loading from "@/svg/Loading.vue";
+import Upload from "@/svg/Upload.vue";
 import {
   getRemoteConfig,
   tools,
   allTags,
   deleteTool,
   insertTool,
+  UploadConfig,
 } from "@/store/tools";
 import useRequest from "@/hooks/useRequest";
 import useScorer from "@/hooks/useScorer";
 import { isLogin } from "@/store/user";
-import { StoreTool } from "./interfaces/tool";
+import { StoreTool } from "@/interfaces/tool";
 
 export default defineComponent({
   components: {
@@ -57,6 +60,7 @@ export default defineComponent({
     Loading,
     EditModal,
     NewCard,
+    Upload,
   },
   setup() {
     const {
@@ -105,6 +109,7 @@ export default defineComponent({
     const onDeleteTool = (tool: StoreTool) => {
       deleteTool(tool._id);
     };
+    const { loading: uploading, send: upload } = useRequest(UploadConfig);
     return {
       configLoading,
       configSuccess,
@@ -120,6 +125,8 @@ export default defineComponent({
       onDeleteTool,
       modalTool,
       onCloseModal,
+      uploading,
+      upload,
     };
   },
 });

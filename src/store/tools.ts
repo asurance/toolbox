@@ -7,10 +7,11 @@ import {
   reactive,
 } from "vue";
 import { RemoteTool, StorageTool, StoreTool } from "@/interfaces/tool";
-import { queryConfig } from "@/services";
+import { queryConfig, updateConfig } from "@/services";
 import { Constant, StorageKey } from "@/interfaces/constant";
 import { APIResult, QueryConfigResult } from "@/interfaces/api";
 import { DefaultSorter } from "@/util";
+import { diff } from "@/Diff";
 
 function getUpdateTime() {
   const updateTime = localStorage.getItem(StorageKey.UpdateTime);
@@ -36,9 +37,11 @@ function getLocalTools() {
       const id = storageKey.slice(StorageKey.ConfigPrefix.length);
       const storageTool = JSON.parse(toolStorage) as StorageTool;
       const { tags, ...rest } = storageTool;
-      tools.push({ ...rest, _id: id, tags: tags.split(",") });
+      const storeTags = tags.length > 0 ? tags.split(",") : [];
+      tools.push({ ...rest, _id: id, tags: storeTags });
     }
   }
+  tools.sort((a, b) => DefaultSorter(a.name, b.name));
   return tools;
 }
 
@@ -113,6 +116,7 @@ export async function getRemoteConfig(): Promise<APIResult<QueryConfigResult>> {
     remoteTools.value = result.data.tools;
     if (result.data.updateTime > updateTime.value) {
       updateTime.value = result.data.updateTime;
+      result.data.tools.sort((a, b) => DefaultSorter(a.name, b.name));
       const needRemove = new Set<string>();
       for (let i = 0; i < localStorage.length; i++) {
         const storageKey = localStorage.key(i)!;
@@ -132,7 +136,7 @@ export async function getRemoteConfig(): Promise<APIResult<QueryConfigResult>> {
       }
       tools.value = remoteTools.value.map(({ tags, ...rest }) => ({
         ...rest,
-        tags: tags.split(","),
+        tags: tags.length > 0 ? tags.split(",") : [],
       }));
     }
   }
@@ -155,17 +159,16 @@ watchEffect(() => {
   }
 });
 
-const defaultTool: Omit<StoreTool, "_id"> = {
-  name: "",
-  url: "",
-  tags: [],
-  description: "",
-};
-
 export function insertTool(): void {
   updateTime.value = Date.now();
   const id = safeId.toString(Constant.Radix);
-  const tool = reactive({ _id: id, ...defaultTool });
+  const tool = reactive({
+    _id: id,
+    name: "",
+    url: "",
+    tags: [],
+    description: "",
+  });
   tools.value.push(tool);
   watchTool(tool, true);
 }
@@ -176,5 +179,29 @@ export function deleteTool(id: string): void {
     updateTime.value = Date.now();
     tools.value.splice(index, 1);
     stopWatch(id);
+  }
+}
+
+export async function UploadConfig(): Promise<APIResult<boolean>> {
+  const diffs = diff();
+  if (Object.keys(diffs).length > 0) {
+    diffs.updateTime = updateTime.value;
+    const savedTools: RemoteTool[] = tools.value.map((tool) => ({
+      _id: tool._id,
+      name: tool.name,
+      description: tool.description,
+      url: tool.url,
+      tags: tool.tags.join(","),
+    }));
+    const reuslt = await updateConfig(diffs);
+    if (reuslt.success && reuslt.data) {
+      remoteTools.value = savedTools;
+    }
+    return reuslt;
+  } else {
+    return {
+      success: true,
+      data: false,
+    };
   }
 }
